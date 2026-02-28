@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verse & Frame — Premium Quote Art Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Great+Vibes&family=Cinzel:wght@400;600;900&family=Raleway:wght@200;300;400;500;700&family=Crimson+Pro:ital,wght@0,200;0,400;0,700;1,200;1,400&family=Oswald:wght@200;300;400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Abril+Fatface&family=Satisfy&family=Rozha+One&family=Unna:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Bodoni+Moda:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Spectral:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@100;200;300;400;600&family=Poiret+One&family=Tenor+Sans&family=Italiana&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+/* ═══════════════════ TOKENS ═══════════════════ */
+:root{
+  --ink:#1a1410;--parchment:#f5efe3;--gold:#b8922a;--gold-lt:#d4a843;
+  --dust:#9e8e7a;--cream:#faf6ee;--border:#c9b99a;
+  --pro:#c9a96e;--free-col:#7a8a6a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#0c0905;color:var(--parchment);font-family:'Raleway',sans-serif;font-weight:300;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.28;}
+
+/* ═══════════════════ TOP NAV ═══════════════════ */
+#topnav{position:sticky;top:0;z-index:400;background:rgba(12,9,5,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,146,42,.15);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:58px;}
+.nav-brand{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.18em;color:var(--parchment);}
+.nav-brand span{color:var(--gold);}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dust);text-decoration:none;cursor:pointer;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-pro-btn{background:linear-gradient(135deg,var(--gold),#7a5a10);border:none;color:#1a1208;font-family:'Cinzel',serif;font-size:.62rem;font-weight:600;letter-spacing:.2em;padding:9px 22px;cursor:pointer;transition:opacity .2s;}
+.nav-pro-btn:hover{opacity:.88;}
+#user-status{font-family:'Raleway',sans-serif;font-size:.6rem;letter-spacing:.15em;color:var(--gold);display:none;}
+
+/* ═══════════════════ HERO ═══════════════════ */
+#page-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(184,146,42,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.hero-tag{font-size:.6rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:22px;animation:fadeUp .8s ease both;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(2.4rem,6vw,5rem);font-weight:400;letter-spacing:.12em;line-height:1.1;margin-bottom:10px;animation:fadeUp .8s ease .1s both;}
+.hero-title span{color:var(--gold);}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.4rem);color:var(--dust);max-width:520px;line-height:1.7;margin-bottom:44px;animation:fadeUp .8s ease .2s both;}
+.hero-cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease .35s both;}
+.btn-primary{background:linear-gradient(135deg,var(--gold),#7a5a10);border:none;color:#1a1208;font-family:'Cinzel',serif;font-size:.72rem;font-weight:600;letter-spacing:.25em;padding:16px 40px;cursor:pointer;transition:all .3s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(184,146,42,.25);}
+.btn-ghost{background:transparent;border:1px solid rgba(184,146,42,.4);color:var(--gold);font-family:'Raleway',sans-serif;font-size:.65rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;padding:16px 32px;cursor:pointer;transition:all .3s;}
+.btn-ghost:hover{background:rgba(184,146,42,.06);border-color:var(--gold);}
+.hero-proof{margin-top:52px;display:flex;gap:44px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease .5s both;}
+.hero-proof-item{text-align:center;}
+.hero-proof-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--parchment);}
+.hero-proof-label{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dust);margin-top:4px;}
+.hero-rule{display:flex;align-items:center;gap:14px;color:rgba(184,146,42,.3);margin:52px 0 0;font-size:.7rem;animation:fadeUp .8s ease .6s both;}
+.hero-rule::before,.hero-rule::after{content:'';width:80px;height:1px;background:linear-gradient(to right,transparent,rgba(184,146,42,.3));}
+.hero-rule::after{background:linear-gradient(to left,transparent,rgba(184,146,42,.3));}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ═══════════════════ STUDIO SECTION ═══════════════════ */
+#page-studio{padding:80px 0;}
+.section-wrap{max-width:900px;margin:0 auto;padding:0 24px;}
+.sec-eyebrow{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.sec-eyebrow::after{content:'';flex:1;height:1px;background:rgba(184,146,42,.18);}
+textarea#qi{width:100%;min-height:120px;background:rgba(245,239,227,.04);border:1px solid rgba(184,146,42,.2);border-top:2px solid rgba(184,146,42,.5);color:var(--parchment);font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;line-height:1.7;padding:22px 26px;resize:none;outline:none;transition:border-color .3s;}
+textarea#qi:focus{border-color:rgba(184,146,42,.55);}
+textarea#qi::placeholder{color:rgba(245,239,227,.18);}
+.input-row{display:flex;gap:12px;margin-top:10px;}
+input#ai{flex:1;background:rgba(245,239,227,.04);border:1px solid rgba(184,146,42,.18);color:var(--parchment);font-family:'Raleway',sans-serif;font-size:.83rem;font-weight:300;letter-spacing:.07em;padding:13px 18px;outline:none;transition:border-color .3s;}
+input#ai::placeholder{color:rgba(245,239,227,.18);}
+input#ai:focus{border-color:rgba(184,146,42,.4);}
+.gen-btn{background:linear-gradient(135deg,var(--gold),#7a5a10);border:none;color:#1a1208;font-family:'Cinzel',serif;font-size:.72rem;font-weight:600;letter-spacing:.25em;padding:13px 34px;cursor:pointer;transition:all .3s;white-space:nowrap;}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(184,146,42,.25);}
+
+/* free tier notice */
+.free-notice{margin-top:14px;padding:12px 18px;background:rgba(122,138,106,.08);border:1px solid rgba(122,138,106,.2);border-left:3px solid var(--free-col);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.free-notice p{font-size:.65rem;letter-spacing:.06em;color:rgba(245,239,227,.55);}
+.free-notice p strong{color:rgba(245,239,227,.8);}
+.free-notice button{background:transparent;border:1px solid rgba(201,169,110,.4);color:var(--pro);font-family:'Raleway',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:7px 18px;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.free-notice button:hover{background:rgba(201,169,110,.08);}
+
+/* ═══════════════════ GALLERY ═══════════════════ */
+#page-gallery{padding:0 20px 80px;max-width:1440px;margin:0 auto;}
+.gallery-header{text-align:center;padding:32px 0 44px;border-bottom:1px solid rgba(184,146,42,.1);margin-bottom:44px;}
+.gallery-header h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;font-style:italic;}
+.gallery-header p{font-size:.65rem;letter-spacing:.25em;color:var(--dust);text-transform:uppercase;margin-top:7px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;}
+
+/* card */
+.card-wrap{display:flex;flex-direction:column;animation:cardIn .5s ease both;}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.card-top{display:flex;justify-content:space-between;align-items:center;padding:0 3px 7px;font-family:'Raleway',sans-serif;font-size:.57rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--dust);}
+.badge{background:rgba(184,146,42,.1);border:1px solid rgba(184,146,42,.2);color:var(--gold);padding:2px 8px;font-size:.5rem;letter-spacing:.16em;}
+.badge.pro-badge{background:rgba(201,169,110,.15);border-color:rgba(201,169,110,.4);color:var(--pro);}
+.badge.mood-badge{background:rgba(120,160,200,.12);border-color:rgba(120,160,200,.3);color:#a0c0e0;}
+
+.print-canvas{aspect-ratio:3/4;position:relative;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;}
+.print-canvas:hover{transform:translateY(-4px);box-shadow:0 18px 50px rgba(0,0,0,.55);}
+
+/* WATERMARK — disabled */
+
+/* PRO lock overlay */
+.pro-lock{position:absolute;inset:0;background:rgba(12,9,5,.6);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:20;cursor:pointer;}
+.pro-lock.show{display:flex;}
+.lock-icon{font-size:1.8rem;opacity:.7;}
+.lock-text{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pro);}
+
+/* action row */
+.action-row{display:flex;gap:7px;margin-top:8px;}
+.act-btn{flex:1;background:transparent;border:1px solid rgba(184,146,42,.25);color:var(--gold);font-family:'Raleway',sans-serif;font-size:.57rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:9px;cursor:pointer;transition:all .2s;}
+.act-btn:hover{background:rgba(184,146,42,.07);border-color:var(--gold);}
+.act-btn.prime{background:rgba(184,146,42,.09);border-color:rgba(184,146,42,.4);}
+.act-btn.pro-act{border-color:rgba(201,169,110,.35);color:var(--pro);}
+.act-btn.pro-act:hover{background:rgba(201,169,110,.08);}
+
+/* empty */
+.empty-state{text-align:center;padding:80px 24px;color:rgba(245,239,227,.18);grid-column:1/-1;}
+.empty-icon{font-size:2.5rem;opacity:.22;margin-bottom:16px;}
+.empty-state p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;}
+
+/* ═══════════════════ PRICING ═══════════════════ */
+#page-pricing{padding:100px 24px;border-top:1px solid rgba(184,146,42,.1);}
+.pricing-wrap{max-width:960px;margin:0 auto;}
+.pricing-eyebrow{text-align:center;font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.pricing-title{text-align:center;font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;font-style:italic;margin-bottom:10px;}
+.pricing-sub{text-align:center;font-size:.75rem;color:var(--dust);letter-spacing:.1em;margin-bottom:60px;}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;}
+.plan-card{border:1px solid rgba(184,146,42,.18);padding:40px 32px;position:relative;transition:border-color .3s;}
+.plan-card:hover{border-color:rgba(184,146,42,.4);}
+.plan-card.featured{border-color:var(--gold);background:rgba(184,146,42,.04);}
+.plan-card.featured::before{content:'MOST POPULAR';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:#1a1208;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.25em;padding:4px 16px;white-space:nowrap;}
+.plan-name{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dust);margin-bottom:16px;}
+.plan-price{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--parchment);line-height:1;margin-bottom:4px;}
+.plan-price sup{font-size:1rem;vertical-align:super;color:var(--dust);}
+.plan-price span{font-size:.9rem;font-weight:400;color:var(--dust);}
+.plan-desc{font-size:.65rem;color:var(--dust);letter-spacing:.05em;margin-bottom:28px;line-height:1.6;}
+.plan-features{list-style:none;margin-bottom:32px;}
+.plan-features li{font-size:.68rem;letter-spacing:.06em;color:rgba(245,239,227,.7);padding:7px 0;border-bottom:1px solid rgba(184,146,42,.08);display:flex;gap:10px;align-items:flex-start;line-height:1.4;}
+.plan-features li::before{content:'✦';color:var(--gold);font-size:.5rem;margin-top:2px;flex-shrink:0;}
+.plan-features li.dim{color:rgba(245,239,227,.3);}
+.plan-features li.dim::before{color:rgba(245,239,227,.2);}
+.plan-cta{width:100%;background:transparent;border:1px solid rgba(184,146,42,.35);color:var(--gold);font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;letter-spacing:.2em;padding:14px;cursor:pointer;transition:all .3s;}
+.plan-cta:hover{background:rgba(184,146,42,.08);border-color:var(--gold);}
+.plan-card.featured .plan-cta{background:linear-gradient(135deg,var(--gold),#7a5a10);border-color:transparent;color:#1a1208;}
+.plan-card.featured .plan-cta:hover{opacity:.9;}
+
+/* ═══════════════════ PAYMENT MODAL ═══════════════════ */
+#pay-modal{display:none;position:fixed;inset:0;background:rgba(8,6,3,.95);z-index:600;align-items:center;justify-content:center;padding:20px;}
+#pay-modal.open{display:flex;}
+.pay-box{background:#141008;border:1px solid rgba(184,146,42,.25);max-width:520px;width:100%;position:relative;animation:payIn .35s ease both;}
+@keyframes payIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+.pay-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--dust);font-size:.65rem;letter-spacing:.2em;font-family:'Raleway',sans-serif;cursor:pointer;text-transform:uppercase;}
+.pay-header{padding:36px 36px 28px;border-bottom:1px solid rgba(184,146,42,.12);}
+.pay-header h3{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:400;letter-spacing:.12em;margin-bottom:6px;}
+.pay-header p{font-size:.65rem;color:var(--dust);letter-spacing:.08em;}
+/* plan toggle inside modal */
+.pay-plans{display:flex;gap:0;margin:24px 36px 0;border:1px solid rgba(184,146,42,.2);}
+.pay-plan-tab{flex:1;padding:14px 10px;text-align:center;cursor:pointer;transition:all .25s;border:none;background:transparent;}
+.pay-plan-tab .pp-name{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dust);}
+.pay-plan-tab .pp-price{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--parchment);margin-top:4px;}
+.pay-plan-tab .pp-sub{font-size:.52rem;color:var(--dust);letter-spacing:.1em;}
+.pay-plan-tab.active{background:rgba(184,146,42,.08);border:1px solid rgba(184,146,42,.4);}
+.pay-plan-tab.active .pp-name{color:var(--gold);}
+.pay-body{padding:28px 36px;}
+.form-group{margin-bottom:18px;}
+.form-label{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--dust);margin-bottom:7px;display:block;}
+.form-input{width:100%;background:rgba(245,239,227,.04);border:1px solid rgba(184,146,42,.18);color:var(--parchment);font-family:'Raleway',sans-serif;font-size:.85rem;font-weight:300;padding:12px 16px;outline:none;transition:border-color .3s;letter-spacing:.04em;}
+.form-input:focus{border-color:rgba(184,146,42,.45);}
+.form-input::placeholder{color:rgba(245,239,227,.2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.card-icons{display:flex;gap:8px;margin-top:8px;}
+.card-icon{padding:4px 10px;border:1px solid rgba(184,146,42,.15);font-size:.55rem;letter-spacing:.1em;color:rgba(245,239,227,.3);}
+.pay-summary{background:rgba(184,146,42,.05);border:1px solid rgba(184,146,42,.1);padding:16px;margin-bottom:20px;}
+.pay-summary-row{display:flex;justify-content:space-between;font-size:.65rem;letter-spacing:.06em;color:rgba(245,239,227,.6);margin-bottom:6px;}
+.pay-summary-row.total{color:var(--parchment);font-weight:500;border-top:1px solid rgba(184,146,42,.15);padding-top:8px;margin-top:4px;}
+.pay-btn{width:100%;background:linear-gradient(135deg,var(--gold),#7a5a10);border:none;color:#1a1208;font-family:'Cinzel',serif;font-size:.75rem;font-weight:600;letter-spacing:.25em;padding:17px;cursor:pointer;transition:all .3s;margin-bottom:12px;}
+.pay-btn:hover{opacity:.9;transform:translateY(-1px);}
+.pay-secure{text-align:center;font-size:.55rem;letter-spacing:.15em;color:rgba(245,239,227,.25);display:flex;align-items:center;justify-content:center;gap:8px;}
+.pay-secure::before{content:'🔒';}
+/* success state */
+.pay-success{display:none;padding:52px 36px;text-align:center;}
+.pay-success.show{display:block;}
+.pay-success-icon{font-size:2.5rem;margin-bottom:20px;}
+.pay-success h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;font-style:italic;margin-bottom:10px;color:var(--gold);}
+.pay-success p{font-size:.7rem;color:var(--dust);letter-spacing:.08em;line-height:1.7;margin-bottom:28px;}
+.pay-success .done-btn{background:linear-gradient(135deg,var(--gold),#7a5a10);border:none;color:#1a1208;font-family:'Cinzel',serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;padding:14px 36px;cursor:pointer;}
+
+/* ═══════════════════ PREVIEW MODAL ═══════════════════ */
+#prev-modal{display:none;position:fixed;inset:0;background:rgba(8,6,3,.93);z-index:500;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+#prev-modal.open{display:flex;}
+#prev-inner{max-width:500px;width:100%;position:relative;margin:auto;}
+#prev-close{position:absolute;top:-34px;right:0;background:none;border:none;color:var(--dust);font-family:'Raleway',sans-serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;}
+#prev-canvas{width:100%;}
+
+/* ── Size Picker ── */
+.size-picker-wrap{margin-top:12px;padding:14px 16px;background:rgba(245,239,227,.03);border:1px solid rgba(184,146,42,.15);}
+.size-picker-label{font-family:'Raleway',sans-serif;font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dust);margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.size-picker-label::after{content:'';flex:1;height:1px;background:rgba(184,146,42,.12);}
+.size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.size-btn{background:transparent;border:1px solid rgba(184,146,42,.18);color:rgba(245,239,227,.5);font-family:'Raleway',sans-serif;font-size:.5rem;font-weight:500;letter-spacing:.08em;padding:8px 4px;cursor:pointer;transition:all .2s;text-align:center;line-height:1.35;}
+.size-btn:hover{border-color:rgba(184,146,42,.4);color:var(--parchment);}
+.size-btn.active{background:rgba(184,146,42,.1);border-color:var(--gold);color:var(--gold);}
+.size-btn .sb-name{display:block;font-size:.52rem;font-weight:500;letter-spacing:.06em;}
+.size-btn .sb-dim{display:block;font-size:.44rem;letter-spacing:.05em;margin-top:2px;opacity:.6;}
+.size-btn .sb-px{display:block;font-size:.4rem;letter-spacing:.03em;margin-top:1px;opacity:.35;}
+.size-pro-note{font-size:.52rem;letter-spacing:.08em;color:rgba(201,169,110,.45);margin-top:8px;text-align:center;}
+.size-pro-note span{color:var(--pro);}
+
+.prev-dl-row{display:flex;gap:8px;margin-top:8px;}
+.prev-dl-btn{flex:1;padding:14px;font-family:'Cinzel',serif;font-size:.65rem;font-weight:600;letter-spacing:.2em;cursor:pointer;transition:all .2s;border:none;}
+.prev-dl-btn.free{background:rgba(122,138,106,.15);border:1px solid rgba(122,138,106,.3);color:rgba(245,239,227,.6);}
+.prev-dl-btn.free:hover{background:rgba(122,138,106,.2);}
+.prev-dl-btn.pro{background:linear-gradient(135deg,var(--gold),#7a5a10);color:#1a1208;}
+.prev-dl-btn.pro:hover{opacity:.9;}
+
+/* ═══════════════════ HOW IT WORKS ═══════════════════ */
+#page-how{padding:100px 24px;border-top:1px solid rgba(184,146,42,.08);}
+.how-wrap{max-width:900px;margin:0 auto;}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:52px;}
+.how-step{text-align:center;}
+.step-num{font-family:'Cinzel',serif;font-size:2rem;color:rgba(184,146,42,.25);font-weight:400;margin-bottom:16px;}
+.step-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;margin-bottom:10px;}
+.step-desc{font-size:.68rem;color:var(--dust);line-height:1.75;letter-spacing:.05em;}
+
+/* ═══════════════════ FOOTER ═══════════════════ */
+footer{padding:44px 32px;border-top:1px solid rgba(184,146,42,.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.foot-brand{font-family:'Cinzel',serif;font-size:.9rem;letter-spacing:.18em;color:rgba(245,239,227,.4);}
+.foot-brand span{color:rgba(184,146,42,.4);}
+.foot-links{display:flex;gap:24px;list-style:none;}
+.foot-links a{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,239,227,.2);text-decoration:none;cursor:pointer;}
+.foot-copy{font-size:.55rem;letter-spacing:.15em;color:rgba(245,239,227,.15);}
+
+@media(max-width:768px){
+  .pricing-grid{grid-template-columns:1fr;}
+  .how-steps{grid-template-columns:1fr;}
+  .input-row{flex-direction:column;}
+  .gen-btn{width:100%;}
+  #topnav{padding:0 16px;}
+  .nav-links{display:none;}
+  .pay-plans{flex-direction:column;}
+}
+
+/* ═══════════════════ DESIGN CSS (compact) ═══════════════════ */
+.pc{width:100%;height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+/* Wildflower */
+.d-wf{background:#fff;padding:44px 36px 44px 38%;}
+.d-wf .side{position:absolute;left:0;top:0;bottom:0;width:36%;background:linear-gradient(135deg,#eef4e2,#e0ead0);overflow:hidden;}
+.d-wf .side::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55px 75px at 35% 30%,rgba(160,190,130,.45) 0%,transparent 70%),radial-gradient(ellipse 40px 55px at 65% 60%,rgba(180,160,110,.35) 0%,transparent 70%),radial-gradient(ellipse 45px 65px at 25% 72%,rgba(140,180,110,.3) 0%,transparent 70%);}
+.d-wf .side-txt{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-10deg);font-size:3rem;opacity:.1;color:#2a4a10;line-height:1.8;letter-spacing:.2em;white-space:nowrap;}
+.d-wf .cnt{display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;z-index:1;}
+.d-wf .ln{display:block;line-height:1.1;margin-bottom:3px;}
+.d-wf .sc{font-family:'Dancing Script',cursive;font-weight:600;font-size:clamp(1.2rem,3.5vw,1.85rem);color:#1a1a1a;}
+.d-wf .bd{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.7rem,5vw,2.8rem);color:#111;text-transform:uppercase;line-height:1.02;}
+.d-wf .au{margin-top:14px;font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.28em;color:#888;text-transform:uppercase;}
+/* ScriptMix */
+.d-sm{background:#fefefe;padding:52px 44px;display:flex;flex-direction:column;justify-content:center;height:100%;}
+.d-sm .ln{display:block;margin-bottom:1px;}
+.d-sm .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.9rem,5.5vw,3rem);color:#111;line-height:1.25;}
+.d-sm .bd{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,6.5vw,3.6rem);color:#111;text-transform:uppercase;line-height:1.02;}
+.d-sm .au{margin-top:22px;font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:#bbb;border-top:1px solid #eee;padding-top:14px;}
+/* Midnight */
+.d-mn{background:#0f0c08;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-mn .glow{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(184,146,42,.09) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);}
+.d-mn .ln{display:block;margin-bottom:5px;position:relative;z-index:1;}
+.d-mn .sc{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(1.5rem,4.5vw,2.4rem);color:var(--gold-lt);}
+.d-mn .bd{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,5vw,2.7rem);color:#f0e8d4;text-transform:uppercase;}
+.d-mn .rl{width:48px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:14px auto;position:relative;z-index:1;}
+.d-mn .au{font-family:'Raleway',sans-serif;font-size:.57rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(184,146,42,.55);position:relative;z-index:1;}
+/* Golden */
+.d-gl{background:#f8f1e0;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-gl::before{content:'';position:absolute;inset:16px;border:1px solid rgba(160,120,40,.28);}
+.d-gl .co{position:absolute;width:24px;height:24px;border-color:rgba(160,120,40,.4);border-style:solid;}
+.d-gl .co.tl{top:24px;left:24px;border-width:1.5px 0 0 1.5px;}
+.d-gl .co.tr{top:24px;right:24px;border-width:1.5px 1.5px 0 0;}
+.d-gl .co.bl{bottom:24px;left:24px;border-width:0 0 1.5px 1.5px;}
+.d-gl .co.br{bottom:24px;right:24px;border-width:0 1.5px 1.5px 0;}
+.d-gl .ln{display:block;margin-bottom:4px;}
+.d-gl .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.5rem,4.5vw,2.6rem);color:#3a2a08;}
+.d-gl .bd{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.1rem,3.5vw,1.85rem);color:#2a1a04;letter-spacing:.08em;}
+.d-gl .rl{width:48px;height:1px;background:rgba(160,120,40,.35);margin:16px auto;}
+.d-gl .au{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.35em;color:rgba(58,42,8,.55);text-transform:uppercase;}
+/* Oswald */
+.d-os{background:#f5f5f5;padding:44px 36px;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;}
+.d-os::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:#1a1410;}
+.d-os .sup{font-family:'Oswald',sans-serif;font-weight:200;font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:#999;margin-bottom:14px;}
+.d-os .ln{display:block;margin-bottom:2px;}
+.d-os .bd{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(2rem,6vw,3.6rem);text-transform:uppercase;color:#111;line-height:.95;}
+.d-os .sc{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(1.4rem,4.5vw,2.6rem);color:#333;line-height:1.2;}
+.d-os .bar{width:100%;height:2px;background:#1a1410;margin:16px 0;}
+.d-os .au{font-family:'Oswald',sans-serif;font-weight:200;font-size:.58rem;letter-spacing:.35em;text-transform:uppercase;color:#bbb;}
+/* Rozha */
+.d-rz{background:#1a2035;padding:52px 44px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:100%;position:relative;}
+.d-rz::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(to bottom,#c9a96e,rgba(201,169,110,.1));}
+.d-rz .tag{font-family:'Raleway',sans-serif;font-size:.54rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,169,110,.55);margin-bottom:22px;padding-left:10px;}
+.d-rz .ln{display:block;padding-left:10px;margin-bottom:3px;}
+.d-rz .bd{font-family:'Rozha One',serif;font-size:clamp(1.7rem,5vw,2.8rem);color:#f0e8d4;line-height:1.1;}
+.d-rz .sc{font-family:'Dancing Script',cursive;font-weight:600;font-size:clamp(1.3rem,4vw,2.2rem);color:#c9a96e;line-height:1.2;}
+.d-rz .rl{width:56px;height:1px;background:rgba(201,169,110,.35);margin:14px 0 14px 10px;}
+.d-rz .au{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.28em;color:rgba(201,169,110,.6);padding-left:10px;}
+/* Fatface */
+.d-ff{background:#fafafa;padding:44px 36px;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;}
+.d-ff .bar{width:100%;height:3px;background:#111;margin-bottom:18px;}
+.d-ff .ln{display:block;line-height:1.08;margin-bottom:2px;}
+.d-ff .bd{font-family:'Abril Fatface',serif;font-size:clamp(2rem,6vw,3.3rem);color:#111;line-height:1;}
+.d-ff .sc{font-family:'Satisfy',cursive;font-size:clamp(1.5rem,4.5vw,2.6rem);color:#333;line-height:1.2;}
+.d-ff .au{margin-top:18px;font-family:'Raleway',sans-serif;font-size:.57rem;letter-spacing:.25em;text-transform:uppercase;color:#bbb;border-top:1px solid #eee;padding-top:12px;}
+/* Blush */
+.d-bl{background:linear-gradient(145deg,#fdf0ee,#f5e0da 60%,#edd4cc);padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-bl .pt{position:absolute;border-radius:50%;background:rgba(180,80,60,.06);}
+.d-bl .pt1{width:170px;height:170px;top:-35px;right:-25px;}
+.d-bl .pt2{width:110px;height:110px;bottom:-15px;left:-8px;}
+.d-bl .mono{width:52px;height:52px;border-radius:50%;border:1px solid rgba(160,70,50,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:1.1rem;color:rgba(160,70,50,.3);position:relative;z-index:1;}
+.d-bl .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-bl .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.7rem,5vw,2.8rem);color:#6a2818;}
+.d-bl .bd{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.1rem,3.5vw,1.9rem);color:#3a1810;text-transform:uppercase;letter-spacing:.06em;}
+.d-bl .rl{display:flex;align-items:center;gap:8px;margin:14px 0;position:relative;z-index:1;}
+.d-bl .rl::before,.d-bl .rl::after{content:'';flex:1;height:1px;background:rgba(160,70,50,.2);}
+.d-bl .rl span{font-size:.55rem;color:rgba(160,70,50,.3);}
+.d-bl .au{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.72rem;color:rgba(106,40,24,.5);position:relative;z-index:1;}
+/* Lora */
+.d-lo{background:#f9f5ee;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-lo .orn{font-size:1.2rem;color:rgba(139,58,26,.22);letter-spacing:.5em;margin-bottom:26px;}
+.d-lo .ln{display:block;margin-bottom:5px;}
+.d-lo .bd{font-family:'Lora',serif;font-weight:700;font-style:italic;font-size:clamp(1.4rem,4vw,2.3rem);color:#2a1a10;}
+.d-lo .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.7rem,5vw,2.8rem);color:#6a3a18;}
+.d-lo .rl{width:44px;height:1px;background:rgba(139,58,26,.28);margin:16px auto;}
+.d-lo .au{font-family:'Raleway',sans-serif;font-size:.57rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(139,58,26,.45);}
+/* Cobalt */
+.d-co{background:#0d1830;padding:52px 44px;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;}
+.d-co .num{position:absolute;top:28px;right:28px;font-family:'Cinzel',serif;font-size:2.8rem;color:rgba(201,169,110,.05);font-weight:900;line-height:1;}
+.d-co .tag{font-family:'Raleway',sans-serif;font-size:.54rem;letter-spacing:.44em;text-transform:uppercase;color:rgba(201,169,110,.45);margin-bottom:26px;}
+.d-co .ln{display:block;margin-bottom:4px;}
+.d-co .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.7rem,5vw,2.8rem);color:#c9a96e;}
+.d-co .bd{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.4rem,4vw,2.3rem);color:#f0e8d4;text-transform:uppercase;}
+.d-co .rl{width:52px;height:1px;background:linear-gradient(to right,transparent,#c9a96e,transparent);margin:16px 0;}
+.d-co .au{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.28em;color:rgba(201,169,110,.55);}
+/* Deco */
+.d-dc{background:#fdf6e8;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-dc .bo{position:absolute;inset:12px;border:1px solid rgba(180,30,30,.18);}
+.d-dc .bi{position:absolute;inset:20px;border:.5px solid rgba(180,30,30,.1);}
+.d-dc .dm{position:absolute;width:10px;height:10px;background:rgba(180,30,30,.22);transform:rotate(45deg);}
+.d-dc .dm.t{top:13px;left:50%;margin-left:-5px;}
+.d-dc .dm.b{bottom:13px;left:50%;margin-left:-5px;}
+.d-dc .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-dc .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.5rem,4.5vw,2.6rem);color:#8b1a1a;}
+.d-dc .bd{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(1.1rem,3.5vw,1.85rem);color:#2a1a08;letter-spacing:.09em;}
+.d-dc .rl{display:flex;align-items:center;gap:8px;margin:15px 0;position:relative;z-index:1;}
+.d-dc .rl::before,.d-dc .rl::after{content:'';flex:1;height:1px;background:rgba(139,26,26,.22);}
+.d-dc .rl span{color:rgba(139,26,26,.32);font-size:.62rem;}
+.d-dc .au{font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.34em;color:rgba(42,26,8,.48);text-transform:uppercase;position:relative;z-index:1;}
+/* News */
+.d-nw{background:#f7f2e8;padding:40px 34px;display:flex;flex-direction:column;justify-content:space-between;height:100%;position:relative;}
+.d-nw .hd{border-bottom:3px double #1a1410;padding-bottom:9px;margin-bottom:14px;text-align:center;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.5em;text-transform:uppercase;color:#1a1410;}
+.d-nw .mn{flex:1;display:flex;flex-direction:column;justify-content:center;}
+.d-nw .ln{display:block;text-align:center;margin-bottom:2px;}
+.d-nw .sc{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(1.2rem,3.5vw,1.9rem);color:#1a1410;}
+.d-nw .bd{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.7rem,5vw,2.8rem);text-transform:uppercase;color:#1a1410;line-height:1.02;}
+.d-nw .ft{border-top:2px solid #1a1410;padding-top:9px;display:flex;justify-content:space-between;font-family:'Raleway',sans-serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:#999;}
+/* Sage */
+.d-sg{background:#eef2e8;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-sg .lf{position:absolute;font-size:1.6rem;opacity:.09;color:#3a5a20;}
+.d-sg .lf.tl{top:18px;left:18px;transform:rotate(-45deg);}
+.d-sg .lf.br{bottom:18px;right:18px;transform:rotate(135deg);}
+.d-sg .top{font-family:'Raleway',sans-serif;font-size:.56rem;letter-spacing:.4em;text-transform:uppercase;color:#6a7a5a;margin-bottom:26px;}
+.d-sg .ln{display:block;margin-bottom:4px;}
+.d-sg .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.4rem,4.5vw,2.4rem);color:#2a3a1a;}
+.d-sg .bd{font-family:'Unna',serif;font-weight:700;font-size:clamp(1.3rem,4vw,2.1rem);color:#1a2a10;text-transform:uppercase;letter-spacing:.06em;}
+.d-sg .rl{display:flex;align-items:center;gap:9px;margin:15px 0;}
+.d-sg .rl::before,.d-sg .rl::after{content:'';flex:1;height:1px;background:rgba(90,107,82,.28);}
+.d-sg .rl span{color:rgba(90,107,82,.45);font-size:.65rem;}
+.d-sg .au{font-family:'Raleway',sans-serif;font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:#6a7a5a;}
+
+/* ═══════════════════ NEW DESIGN 1 — Ink Botanical ═══════════════════ */
+.d-ib{background:#fdfaf5;padding:52px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-ib .border-frame{position:absolute;inset:14px;pointer-events:none;}
+.d-ib .border-frame svg{width:100%;height:100%;}
+.d-ib .corner-leaf{position:absolute;font-size:1.4rem;line-height:1;opacity:.18;color:#1a1a1a;}
+.d-ib .corner-leaf.tl{top:22px;left:22px;transform:rotate(-30deg);}
+.d-ib .corner-leaf.tr{top:22px;right:22px;transform:rotate(60deg) scaleX(-1);}
+.d-ib .corner-leaf.bl{bottom:22px;left:22px;transform:rotate(-120deg);}
+.d-ib .corner-leaf.br{bottom:22px;right:22px;transform:rotate(150deg) scaleX(-1);}
+.d-ib .ink-rule{width:56px;height:1px;background:#1a1a1a;opacity:.2;margin:0 auto 28px;}
+.d-ib .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-ib .sc{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.3rem,4vw,2.2rem);color:#1a1a1a;font-weight:400;}
+.d-ib .bd{font-family:'Libre Baskerville',serif;font-weight:700;font-size:clamp(1.1rem,3.2vw,1.8rem);color:#111;letter-spacing:.04em;text-transform:uppercase;}
+.d-ib .rl{width:40px;height:1px;background:#1a1a1a;opacity:.18;margin:18px auto 14px;}
+.d-ib .au{font-family:'Raleway',sans-serif;font-size:.54rem;letter-spacing:.32em;text-transform:uppercase;color:#888;position:relative;z-index:1;}
+.d-ib .sprig{position:absolute;opacity:.07;color:#1a1a1a;font-size:2.2rem;line-height:1;}
+.d-ib .sprig.left{left:44px;top:50%;transform:translateY(-50%) rotate(-15deg);}
+.d-ib .sprig.right{right:44px;top:50%;transform:translateY(-50%) rotate(15deg) scaleX(-1);}
+
+/* ═══════════════════ NEW DESIGN 2 — Watercolour Bloom ═══════════════════ */
+.d-wb{background:#fef6f0;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;overflow:hidden;}
+.d-wb::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 200px 180px at 15% 20%,rgba(230,160,170,.28) 0%,transparent 70%),
+  radial-gradient(ellipse 180px 220px at 85% 75%,rgba(160,190,170,.22) 0%,transparent 70%),
+  radial-gradient(ellipse 160px 140px at 60% 15%,rgba(200,170,220,.2) 0%,transparent 70%),
+  radial-gradient(ellipse 140px 160px at 20% 80%,rgba(240,200,140,.2) 0%,transparent 70%);
+  pointer-events:none;}
+.d-wb .bloom{position:absolute;border-radius:50%;filter:blur(28px);pointer-events:none;}
+.d-wb .bl1{width:160px;height:120px;background:rgba(230,150,160,.15);top:-30px;left:-20px;}
+.d-wb .bl2{width:120px;height:160px;background:rgba(150,190,160,.13);bottom:-20px;right:-10px;}
+.d-wb .ln{display:block;margin-bottom:5px;position:relative;z-index:1;}
+.d-wb .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.8rem,5.5vw,3.2rem);color:#5a2a3a;}
+.d-wb .bd{font-family:'Spectral',serif;font-weight:300;font-style:italic;font-size:clamp(1.1rem,3.5vw,2rem);color:#3a1a28;letter-spacing:.03em;}
+.d-wb .rl{display:flex;align-items:center;gap:10px;margin:16px 0;position:relative;z-index:1;}
+.d-wb .rl::before,.d-wb .rl::after{content:'';flex:1;height:1px;background:rgba(180,100,120,.2);}
+.d-wb .rl span{font-size:.8rem;color:rgba(180,100,120,.3);}
+.d-wb .au{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.72rem;color:rgba(90,42,58,.5);position:relative;z-index:1;}
+
+/* ═══════════════════ NEW DESIGN 3 — Scandi Clean ═══════════════════ */
+.d-sc{background:#ffffff;padding:60px 52px;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;}
+.d-sc .sc-tag{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.52rem;letter-spacing:.65em;text-transform:uppercase;color:#bbb;margin-bottom:40px;}
+.d-sc .ln{display:block;margin-bottom:2px;}
+.d-sc .bd{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,5vw,3rem);color:#111;font-weight:400;line-height:1.08;}
+.d-sc .sc{font-family:'Josefin Sans',sans-serif;font-weight:200;font-size:clamp(.9rem,2.8vw,1.5rem);color:#555;letter-spacing:.06em;}
+.d-sc .rl{width:100%;height:1px;background:#e0e0e0;margin:28px 0;}
+.d-sc .au{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.52rem;letter-spacing:.45em;text-transform:uppercase;color:#bbb;}
+
+/* ═══════════════════ NEW DESIGN 4 — Nordic Nature ═══════════════════ */
+.d-sf{background:#f5f2ec;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-sf .pine-tl,.d-sf .pine-br{position:absolute;opacity:.1;color:#2d4a28;}
+.d-sf .pine-tl{top:14px;left:14px;font-size:2.2rem;transform:rotate(-20deg);}
+.d-sf .pine-br{bottom:14px;right:14px;font-size:2.2rem;transform:rotate(160deg);}
+.d-sf .nb{width:36px;height:2px;background:#2d4a28;opacity:.35;margin:0 auto 24px;}
+.d-sf .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-sf .bd{font-family:'Tenor Sans',sans-serif;font-size:clamp(1.2rem,3.8vw,2.2rem);color:#1a2a18;letter-spacing:.06em;text-transform:uppercase;}
+.d-sf .sc{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.3rem,4vw,2.4rem);color:#2d4a28;}
+.d-sf .rl{display:flex;align-items:center;gap:8px;margin:18px auto;width:80%;position:relative;z-index:1;}
+.d-sf .rl::before,.d-sf .rl::after{content:'';flex:1;height:1px;background:rgba(45,74,40,.2);}
+.d-sf .rl span{font-size:.7rem;color:rgba(45,74,40,.25);}
+.d-sf .au{font-family:'Josefin Sans',sans-serif;font-weight:200;font-size:.54rem;letter-spacing:.38em;text-transform:uppercase;color:#6a7a60;position:relative;z-index:1;}
+
+/* ═══════════════════ NEW DESIGN 5 — Abstract Geo ═══════════════════ */
+.d-ag{background:#f2ede6;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;overflow:hidden;}
+.d-ag .geo-circle{position:absolute;border-radius:50%;border:1px solid rgba(180,100,60,.15);}
+.d-ag .gc1{width:280px;height:280px;top:-80px;right:-60px;}
+.d-ag .gc2{width:180px;height:180px;bottom:-40px;left:-40px;}
+.d-ag .geo-rect{position:absolute;background:rgba(180,100,60,.06);}
+.d-ag .gr1{width:3px;height:100%;left:42px;top:0;}
+.d-ag .gr2{width:100%;height:3px;top:42px;left:0;}
+.d-ag .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-ag .bd{font-family:'Philosopher',serif;font-weight:700;font-size:clamp(1.4rem,4.5vw,2.6rem);color:#2a1a10;text-transform:uppercase;letter-spacing:.06em;}
+.d-ag .sc{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.2rem,3.8vw,2.2rem);color:#6a3a20;}
+.d-ag .rl{width:48px;height:2px;background:rgba(180,100,60,.4);margin:18px auto;position:relative;z-index:1;}
+.d-ag .au{font-family:'Raleway',sans-serif;font-weight:300;font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(106,58,32,.45);position:relative;z-index:1;}
+
+/* ═══════════════════ NEW DESIGN 6 — Zen Journal ═══════════════════ */
+.d-jz{background:#f8f5ef;padding:52px 44px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:100%;position:relative;}
+.d-jz .brush{position:absolute;right:28px;top:50%;transform:translateY(-50%);width:3px;height:60%;background:linear-gradient(to bottom,transparent,rgba(140,40,20,.35),transparent);border-radius:2px;}
+.d-jz .zen-dot{width:6px;height:6px;border-radius:50%;background:rgba(140,40,20,.4);margin-bottom:28px;}
+.d-jz .ln{display:block;margin-bottom:6px;}
+.d-jz .bd{font-family:'Philosopher',serif;font-weight:400;font-size:clamp(1.3rem,4vw,2.3rem);color:#1a1208;line-height:1.25;}
+.d-jz .sc{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.1rem,3.2vw,1.9rem);color:#3a2a18;line-height:1.35;}
+.d-jz .rl{width:44px;height:1px;background:rgba(140,40,20,.3);margin:20px 0 16px;}
+.d-jz .au{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.54rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(140,40,20,.45);}
+.d-jz .kanji{position:absolute;bottom:28px;right:36px;font-size:2.8rem;opacity:.05;color:#1a1208;line-height:1;user-select:none;}
+
+/* ═══════════════════ NEW DESIGN 7 — Modern Serif ═══════════════════ */
+.d-ms{background:#faf8f4;padding:68px 52px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-ms .ms-tag{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.48rem;letter-spacing:.7em;text-transform:uppercase;color:#ccc;margin-bottom:44px;}
+.d-ms .ln{display:block;margin-bottom:3px;}
+.d-ms .bd{font-family:'Italiana',serif;font-size:clamp(1.5rem,4.5vw,2.8rem);color:#1a1a1a;font-weight:400;letter-spacing:.04em;text-transform:lowercase;}
+.d-ms .sc{font-family:'Spectral',serif;font-weight:200;font-style:italic;font-size:clamp(1.2rem,3.5vw,2.2rem);color:#444;letter-spacing:.02em;}
+.d-ms .rl{width:1px;height:36px;background:#ddd;margin:24px auto;}
+.d-ms .au{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.48rem;letter-spacing:.55em;text-transform:uppercase;color:#bbb;}
+
+/* ═══════════════════ NEW DESIGN 8 — Nordic Poster ═══════════════════ */
+.d-np{background:#111;padding:40px 36px;display:flex;flex-direction:column;justify-content:space-between;height:100%;position:relative;}
+.d-np .np-top{border-bottom:1px solid rgba(201,169,110,.4);padding-bottom:12px;display:flex;justify-content:space-between;align-items:baseline;}
+.d-np .np-label{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.5rem;letter-spacing:.5em;text-transform:uppercase;color:rgba(201,169,110,.5);}
+.d-np .np-num{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.5rem;color:rgba(201,169,110,.3);letter-spacing:.2em;}
+.d-np .np-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:24px 0;}
+.d-np .ln{display:block;margin-bottom:3px;}
+.d-np .bd{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(1.8rem,5.5vw,3.2rem);color:#f5f0e8;text-transform:uppercase;line-height:.95;}
+.d-np .sc{font-family:'Oswald',sans-serif;font-weight:200;font-size:clamp(1.2rem,3.8vw,2.2rem);color:rgba(201,169,110,.8);letter-spacing:.08em;}
+.d-np .np-bot{border-top:1px solid rgba(201,169,110,.4);padding-top:12px;display:flex;justify-content:space-between;}
+.d-np .au{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(201,169,110,.4);}
+
+/* ═══════════════════ NEW DESIGN 9 — Crushed Petals ═══════════════════ */
+.d-cp{background:#fdf0f4;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;overflow:hidden;}
+.d-cp::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 220px 160px at 10% 12%,rgba(220,160,180,.25) 0%,transparent 70%),
+  radial-gradient(ellipse 160px 200px at 90% 85%,rgba(160,200,170,.2) 0%,transparent 70%),
+  radial-gradient(ellipse 140px 120px at 80% 10%,rgba(200,180,220,.18) 0%,transparent 70%),
+  radial-gradient(ellipse 120px 150px at 15% 88%,rgba(230,200,150,.16) 0%,transparent 70%);
+  pointer-events:none;filter:blur(8px);}
+.d-cp .petal{position:absolute;border-radius:50% 10% 50% 10%;opacity:.06;background:#8a3050;}
+.d-cp .p1{width:50px;height:28px;top:18%;left:12%;transform:rotate(-35deg);}
+.d-cp .p2{width:38px;height:22px;bottom:22%;right:10%;transform:rotate(55deg);}
+.d-cp .p3{width:44px;height:24px;top:70%;left:18%;transform:rotate(20deg);}
+.d-cp .p4{width:32px;height:18px;top:15%;right:18%;transform:rotate(-60deg);}
+.d-cp .mono{font-family:'Great Vibes',cursive;font-size:1.8rem;color:rgba(138,48,80,.2);margin-bottom:18px;position:relative;z-index:1;}
+.d-cp .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-cp .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.7rem,5vw,3rem);color:#5a1a30;}
+.d-cp .bd{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1rem,3.2vw,1.85rem);color:#3a0e1e;letter-spacing:.06em;text-transform:uppercase;}
+.d-cp .rl{display:flex;align-items:center;gap:8px;margin:16px 0;position:relative;z-index:1;}
+.d-cp .rl::before,.d-cp .rl::after{content:'';flex:1;height:1px;background:rgba(138,48,80,.18);}
+.d-cp .rl span{font-size:.7rem;color:rgba(138,48,80,.22);}
+.d-cp .au{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.72rem;color:rgba(90,26,48,.45);position:relative;z-index:1;}
+
+/* ═══════════════════ NEW DESIGN 10 — Vintage Botanica ═══════════════════ */
+.d-vb{background:#f5eedc;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;}
+.d-vb::before{content:'';position:absolute;inset:10px;border:1px solid rgba(100,70,20,.2);}
+.d-vb::after{content:'';position:absolute;inset:16px;border:.5px solid rgba(100,70,20,.12);}
+.d-vb .vb-corner{position:absolute;font-size:1.2rem;opacity:.15;color:#3a2808;}
+.d-vb .vb-corner.tl{top:26px;left:26px;}
+.d-vb .vb-corner.tr{top:26px;right:26px;transform:scaleX(-1);}
+.d-vb .vb-corner.bl{bottom:26px;left:26px;transform:scaleY(-1);}
+.d-vb .vb-corner.br{bottom:26px;right:26px;transform:scale(-1);}
+.d-vb .vb-tag{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.55em;text-transform:uppercase;color:rgba(58,40,8,.38);margin-bottom:24px;position:relative;z-index:1;}
+.d-vb .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-vb .sc{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(1.4rem,4.5vw,2.6rem);color:#3a2808;}
+.d-vb .bd{font-family:'Libre Baskerville',serif;font-weight:700;font-size:clamp(1rem,3.2vw,1.8rem);color:#2a1a04;letter-spacing:.05em;text-transform:uppercase;}
+.d-vb .rl{display:flex;align-items:center;gap:10px;margin:16px 0;position:relative;z-index:1;}
+.d-vb .rl::before,.d-vb .rl::after{content:'';flex:1;height:1px;background:rgba(100,70,20,.22);}
+.d-vb .rl span{font-size:.75rem;color:rgba(100,70,20,.28);}
+.d-vb .au{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.36em;text-transform:uppercase;color:rgba(58,40,8,.42);position:relative;z-index:1;}
+
+/* ═══════════════════ NEW DESIGN 11 — Terracotta Bold ═══════════════════ */
+.d-tb{background:#f2e8dc;padding:52px 44px;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;overflow:hidden;}
+.d-tb .tc-block{position:absolute;right:0;top:0;bottom:0;width:8px;background:linear-gradient(to bottom,#c4622a,#8a3a18);}
+.d-tb .tc-circle{position:absolute;border-radius:50%;border:1.5px solid rgba(196,98,42,.18);}
+.d-tb .tcc1{width:200px;height:200px;bottom:-60px;right:-60px;}
+.d-tb .tcc2{width:120px;height:120px;top:-20px;left:-20px;}
+.d-tb .tc-label{font-family:'Raleway',sans-serif;font-weight:200;font-size:.52rem;letter-spacing:.5em;text-transform:uppercase;color:rgba(196,98,42,.45);margin-bottom:22px;}
+.d-tb .ln{display:block;margin-bottom:3px;}
+.d-tb .bd{font-family:'Abril Fatface',serif;font-size:clamp(1.8rem,5.5vw,3.2rem);color:#2a1208;line-height:1.0;}
+.d-tb .sc{font-family:'Dancing Script',cursive;font-weight:600;font-size:clamp(1.4rem,4vw,2.4rem);color:#c4622a;line-height:1.2;}
+.d-tb .rl{width:44px;height:3px;background:#c4622a;margin:18px 0;opacity:.6;}
+.d-tb .au{font-family:'Raleway',sans-serif;font-weight:300;font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(138,58,24,.45);}
+
+/* ═══════════════════ NEW DESIGN 12 — William Morris ═══════════════════ */
+.d-wm{background:#1a2e2a;padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;overflow:hidden;}
+.d-wm::before{content:'';position:absolute;inset:0;background-image:
+  radial-gradient(ellipse 60px 80px at 8% 15%,rgba(180,150,60,.08) 0%,transparent 60%),
+  radial-gradient(ellipse 50px 70px at 92% 80%,rgba(180,150,60,.08) 0%,transparent 60%),
+  radial-gradient(ellipse 40px 55px at 8% 80%,rgba(180,150,60,.06) 0%,transparent 60%),
+  radial-gradient(ellipse 40px 55px at 92% 15%,rgba(180,150,60,.06) 0%,transparent 60%);
+  pointer-events:none;}
+.d-wm .wm-border{position:absolute;inset:12px;border:1px solid rgba(180,150,60,.22);}
+.d-wm .wm-inner{position:absolute;inset:20px;border:.5px solid rgba(180,150,60,.12);}
+.d-wm .wm-corner{position:absolute;font-size:1.1rem;color:rgba(180,150,60,.25);}
+.d-wm .wm-corner.tl{top:28px;left:28px;}
+.d-wm .wm-corner.tr{top:28px;right:28px;}
+.d-wm .wm-corner.bl{bottom:28px;left:28px;}
+.d-wm .wm-corner.br{bottom:28px;right:28px;}
+.d-wm .wm-tag{font-family:'Cinzel',serif;font-size:.46rem;letter-spacing:.5em;text-transform:uppercase;color:rgba(180,150,60,.4);margin-bottom:26px;position:relative;z-index:1;}
+.d-wm .ln{display:block;margin-bottom:4px;position:relative;z-index:1;}
+.d-wm .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.5rem,4.5vw,2.8rem);color:#c9a96e;}
+.d-wm .bd{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(.95rem,3vw,1.65rem);color:#e8dfc0;letter-spacing:.1em;}
+.d-wm .rl{display:flex;align-items:center;gap:10px;margin:18px 0;position:relative;z-index:1;}
+.d-wm .rl::before,.d-wm .rl::after{content:'';flex:1;height:1px;background:rgba(180,150,60,.22);}
+.d-wm .rl span{font-size:.7rem;color:rgba(180,150,60,.3);}
+.d-wm .au{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.36em;text-transform:uppercase;color:rgba(180,150,60,.4);position:relative;z-index:1;}
+
+/* ═══════════════════ MOOD INDICATOR ═══════════════════ */
+.mood-pill{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:20px;font-family:'Raleway',sans-serif;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;margin-top:10px;border:1px solid rgba(184,146,42,.2);color:var(--dust);background:rgba(184,146,42,.04);transition:all .5s;}
+.mood-pill .mood-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+#mood-bar{text-align:center;min-height:28px;transition:opacity .4s;}
+
+/* ═══════════════════ MOOD DESIGN 1 — Aurora Wash ═══════════════════ */
+/* fully dynamic — bg set via JS inline style */
+.d-aw{padding:52px 44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;overflow:hidden;}
+.d-aw .aw-veil{position:absolute;inset:0;background:rgba(0,0,0,.32);pointer-events:none;}
+.d-aw .ln{display:block;margin-bottom:5px;position:relative;z-index:2;}
+.d-aw .sc{font-family:'Great Vibes',cursive;font-size:clamp(1.8rem,5.5vw,3.2rem);color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.5);}
+.d-aw .bd{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.2rem,3.8vw,2.2rem);color:#fff;text-transform:uppercase;letter-spacing:.07em;text-shadow:0 2px 14px rgba(0,0,0,.55);}
+.d-aw .rl{width:48px;height:1px;background:rgba(255,255,255,.4);margin:16px auto;position:relative;z-index:2;}
+.d-aw .au{font-family:'Raleway',sans-serif;font-weight:300;font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.65);position:relative;z-index:2;}
+
+/* ═══════════════════ MOOD DESIGN 2 — Gradient Canvas ═══════════════════ */
+.d-gc{padding:52px 44px;display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;overflow:hidden;}
+.d-gc .gc-noise{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;}
+.d-gc .gc-bar{position:absolute;left:0;top:0;bottom:0;width:5px;}
+.d-gc .gc-tag{font-family:'Josefin Sans',sans-serif;font-weight:100;font-size:.5rem;letter-spacing:.5em;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:1;}
+.d-gc .ln{display:block;margin-bottom:3px;position:relative;z-index:1;}
+.d-gc .bd{font-family:'DM Serif Display',serif;font-size:clamp(1.5rem,4.8vw,2.8rem);line-height:1.1;}
+.d-gc .sc{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.2rem,3.8vw,2.2rem);}
+.d-gc .rl{width:44px;height:2px;margin:18px 0;position:relative;z-index:1;}
+.d-gc .au{font-family:'Josefin Sans',sans-serif;font-weight:200;font-size:.54rem;letter-spacing:.38em;text-transform:uppercase;position:relative;z-index:1;}
+
+/* ═══════════════════ MOOD DESIGN 3 — Ink Wash ═══════════════════ */
+.d-iw{padding:56px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;position:relative;overflow:hidden;}
+.d-iw .iw-blob1,.d-iw .iw-blob2,.d-iw .iw-blob3{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none;opacity:.55;}
+.d-iw .ln{display:block;margin-bottom:5px;position:relative;z-index:2;}
+.d-iw .sc{font-family:'Italiana',serif;font-size:clamp(1.6rem,5vw,3rem);line-height:1.2;}
+.d-iw .bd{font-family:'Spectral',serif;font-weight:300;font-size:clamp(1rem,3.2vw,1.9rem);letter-spacing:.04em;}
+.d-iw .rl{display:flex;align-items:center;gap:9px;margin:18px 0;position:relative;z-index:2;width:70%;}
+.d-iw .rl::before,.d-iw .rl::after{content:'';flex:1;height:1px;}
+.d-iw .rl span{font-size:.65rem;}
+.d-iw .au{font-family:'Spectral',serif;font-style:italic;font-weight:200;font-size:.7rem;letter-spacing:.1em;position:relative;z-index:2;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOP NAV ═══════════ -->
+<nav id="topnav">
+  <div class="nav-brand">Verse <span>&</span> Frame</div>
+  <ul class="nav-links">
+    <li><a onclick="scrollTo('page-studio')">Studio</a></li>
+    <li><a onclick="scrollTo('page-how')">How It Works</a></li>
+    <li><a onclick="scrollTo('page-pricing')">Pricing</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div id="user-status">✦ PRO MEMBER</div>
+    <button class="nav-pro-btn" onclick="openPayModal('pro-monthly')">Upgrade to Pro</button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="page-hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tag">✦ &nbsp; Premium Quote Art Studio &nbsp; ✦</div>
+  <h1 class="hero-title">Turn Words Into<br><span>Wall Art</span></h1>
+  <p class="hero-sub">Type any quote. Choose from 12 hand-crafted print designs. Download print-ready art for your home, studio, or as a gift.</p>
+  <div class="hero-cta-row">
+    <button class="btn-primary" onclick="scrollTo('page-studio')">Create Your Print — Free</button>
+    <button class="btn-ghost" onclick="scrollTo('page-pricing')">View Pro Plans</button>
+  </div>
+  <div class="hero-proof">
+    <div class="hero-proof-item">
+      <div class="hero-proof-num">28</div>
+      <div class="hero-proof-label">Unique Designs</div>
+    </div>
+    <div class="hero-proof-item">
+      <div class="hero-proof-num">4K</div>
+      <div class="hero-proof-label">Print Quality</div>
+    </div>
+    <div class="hero-proof-item">
+      <div class="hero-proof-num">∞</div>
+      <div class="hero-proof-label">Quotes</div>
+    </div>
+    <div class="hero-proof-item">
+      <div class="hero-proof-num">60s</div>
+      <div class="hero-proof-label">To Create</div>
+    </div>
+  </div>
+  <div class="hero-rule">✦</div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section id="page-how">
+  <div class="how-wrap">
+    <div style="text-align:center">
+      <div class="pricing-eyebrow">Simple Process</div>
+      <div class="pricing-title">How It Works</div>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-num">I</div>
+        <div class="step-title">Type Your Quote</div>
+        <div class="step-desc">Enter any quote, verse, mantra, or words that inspire you. Add the author or leave it anonymous.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">II</div>
+        <div class="step-title">Choose Your Design</div>
+        <div class="step-desc">Instantly see your quote rendered in 28 unique art styles — including 3 mood-matched designs that change colour with your quote.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">III</div>
+        <div class="step-title">Download & Print</div>
+        <div class="step-desc">Free tier includes watermarked previews. Pro members get crystal-clear 4K files ready for any frame size.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STUDIO ═══════════ -->
+<section id="page-studio">
+  <div class="section-wrap">
+    <div class="sec-eyebrow">Your Quote</div>
+    <textarea id="qi" rows="4" placeholder="Enter your favourite quote…&#10;e.g. &quot;You are enough, exactly as you are.&quot;"></textarea>
+    <div class="input-row">
+      <input type="text" id="ai" placeholder="— Author or source (optional)">
+      <button class="gen-btn" onclick="go()">✦ &nbsp; Generate Prints</button>
+    </div>
+    <div class="free-notice">
+      <p>🎨 <strong>Free tier:</strong> Download all 28 designs with a small watermark &nbsp;·&nbsp; <strong>Pro:</strong> Crystal-clear 4K, no watermark, unlimited downloads</p>
+      <button onclick="openPayModal('pro-monthly')">Unlock Pro ✦</button>
+    </div>
+    <div id="mood-bar"></div>
+  </div>
+</section>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<section id="page-gallery">
+  <div id="ghead" class="gallery-header" style="display:none">
+    <h2>Your Collection</h2>
+    <p id="ghead-sub">12 Unique Designs &nbsp;·&nbsp; Mixed Fonts &nbsp;·&nbsp; Print Ready</p>
+  </div>
+  <div class="grid" id="grid">
+    <div class="empty-state">
+      <div class="empty-icon">✦</div>
+      <p>Your quote, twenty-eight ways.<br>Each design a unique work of art.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section id="page-pricing">
+  <div class="pricing-wrap">
+    <div class="pricing-eyebrow">Simple, Honest Pricing</div>
+    <h2 class="pricing-title">Choose Your Plan</h2>
+    <p class="pricing-sub">Start free. Upgrade when you love it. No subscriptions you'll regret.</p>
+    <div class="pricing-grid">
+
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0<span>/forever</span></div>
+        <p class="plan-desc">Perfect for trying out the studio and creating occasional prints.</p>
+        <ul class="plan-features">
+          <li>All 28 unique designs</li>
+          <li>PNG download, all designs</li>
+          <li>Mixed font styles</li>
+          <li class="dim">Watermark on all downloads</li>
+          <li class="dim">Standard 72dpi only</li>
+          <li class="dim">No commercial use</li>
+        </ul>
+        <button class="plan-cta" onclick="scrollTo('page-studio')">Start Creating Free</button>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-name">Pro Monthly</div>
+        <div class="plan-price"><sup>$</sup>7<span>/month</span></div>
+        <p class="plan-desc">For creators, wellness coaches, and home decorators who want the best.</p>
+        <ul class="plan-features">
+          <li>All 28 designs + new monthly drops</li>
+          <li>4K ultra HD downloads (300dpi)</li>
+          <li>Zero watermarks, ever</li>
+          <li>Commercial use licence</li>
+          <li>Priority new design access</li>
+          <li>Cancel any time</li>
+        </ul>
+        <button class="plan-cta" onclick="openPayModal('pro-monthly')">Get Pro — $7/mo</button>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Pro Annual</div>
+        <div class="plan-price"><sup>$</sup>49<span>/year</span></div>
+        <p class="plan-desc">Best value. Two months free compared to monthly billing.</p>
+        <ul class="plan-features">
+          <li>Everything in Pro Monthly</li>
+          <li>Save 42% vs monthly</li>
+          <li>Early access to new styles</li>
+          <li>Printable A3 + A4 templates</li>
+          <li>Commercial use licence</li>
+          <li>Priority email support</li>
+        </ul>
+        <button class="plan-cta" onclick="openPayModal('pro-annual')">Get Annual — $49/yr</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="foot-brand">Verse <span>&</span> Frame</div>
+  <ul class="foot-links">
+    <li><a>Privacy</a></li>
+    <li><a>Terms</a></li>
+    <li><a>Contact</a></li>
+    <li><a onclick="scrollTo('page-pricing')">Pricing</a></li>
+  </ul>
+  <div class="foot-copy">© 2025 Verse & Frame Studio. All rights reserved.</div>
+</footer>
+
+<!-- ═══════════ PAYMENT MODAL ═══════════ -->
+<div id="pay-modal">
+  <div class="pay-box">
+    <button class="pay-close" onclick="closePayModal()">✕ Close</button>
+
+    <!-- Form view -->
+    <div id="pay-form-view">
+      <div class="pay-header">
+        <h3>Unlock Pro Access</h3>
+        <p>Join thousands creating beautiful quote art every day</p>
+        <div class="pay-plans">
+          <button class="pay-plan-tab active" id="tab-monthly" onclick="selectPlan('pro-monthly')">
+            <div class="pp-name">Monthly</div>
+            <div class="pp-price">$7</div>
+            <div class="pp-sub">per month</div>
+          </button>
+          <button class="pay-plan-tab" id="tab-annual" onclick="selectPlan('pro-annual')">
+            <div class="pp-name">Annual <span style="font-size:.48rem;color:#b8922a;"> SAVE 42%</span></div>
+            <div class="pp-price">$49</div>
+            <div class="pp-sub">per year · $4.08/mo</div>
+          </button>
+        </div>
+      </div>
+      <div class="pay-body">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" id="pay-email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <input class="form-input" type="text" id="pay-card" placeholder="4242 4242 4242 4242" maxlength="19" oninput="fmtCard(this)">
+          <div class="card-icons">
+            <span class="card-icon">VISA</span>
+            <span class="card-icon">MC</span>
+            <span class="card-icon">AMEX</span>
+            <span class="card-icon">UPI</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Expiry</label>
+            <input class="form-input" type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input class="form-input" type="text" placeholder="•••" maxlength="4">
+          </div>
+        </div>
+        <div class="pay-summary">
+          <div class="pay-summary-row"><span>Plan</span><span id="sum-plan">Pro Monthly</span></div>
+          <div class="pay-summary-row"><span>Billing</span><span id="sum-billing">Monthly · Cancel anytime</span></div>
+          <div class="pay-summary-row total"><span>Total today</span><span id="sum-total">$7.00</span></div>
+        </div>
+        <button class="pay-btn" onclick="processPayment()">✦ &nbsp; Complete Purchase</button>
+        <div class="pay-secure">256-bit SSL encrypted · Powered by Stripe</div>
+      </div>
+    </div>
+
+    <!-- Success view -->
+    <div class="pay-success" id="pay-success-view">
+      <div class="pay-success-icon">✦</div>
+      <h3>Welcome to Pro!</h3>
+      <p>Your account has been upgraded. All 28 designs are now available in crystal-clear print quality with no watermarks. Start creating your collection below.</p>
+      <button class="done-btn" onclick="activatePro()">✦ &nbsp; Start Creating</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PREVIEW MODAL ═══════════ -->
+<div id="prev-modal">
+  <div id="prev-inner">
+    <button id="prev-close" onclick="closePrev()">✕ &nbsp; Close</button>
+    <div id="prev-canvas"></div>
+
+    <!-- Frame Size Picker -->
+    <div class="size-picker-wrap">
+      <div class="size-picker-label">Frame Size</div>
+      <div class="size-grid" id="size-grid">
+        <!-- populated by JS -->
+      </div>
+      <div class="size-pro-note" id="size-pro-note"></div>
+    </div>
+
+    <div class="prev-dl-row">
+      <button class="prev-dl-btn free" id="prev-free-btn" onclick="dlPreviewFree()">↓ Free (Watermarked)</button>
+      <button class="prev-dl-btn pro" id="prev-pro-btn" onclick="dlPreviewPro()">✦ Pro — 4K Clean</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let isPro = false;
+let activePlan = 'pro-monthly';
+let prevEl = null, prevId = '';
+let activeSize = 'a4'; // default frame size
+
+/* ══════════════════════════════════════
+   FRAME SIZES
+   w/h = pixels at 300dpi (print-ready)
+   ratio = CSS aspect-ratio for preview
+   proOnly = requires Pro to export at full res
+══════════════════════════════════════ */
+const SIZES = [
+  { id:'5x7',   label:'5 × 7"',     sub:'Small Print',   ikea:'',          w:1500, h:2100, ratio:'5/7',   proOnly:false },
+  { id:'a4',    label:'A4 / 8×10"', sub:'Most Popular',  ikea:'HOVSTA',    w:2480, h:3508, ratio:'1/1.41',proOnly:false },
+  { id:'11x14', label:'11 × 14"',   sub:'30 × 40 cm',    ikea:'RIBBA',     w:3300, h:4200, ratio:'11/14', proOnly:true  },
+  { id:'16x20', label:'16 × 20"',   sub:'40 × 50 cm',    ikea:'BJÖRKSTA',  w:4800, h:6000, ratio:'4/5',   proOnly:true  },
+  { id:'a2',    label:'A2 / 18×24"',sub:'50 × 70 cm',    ikea:'SILVERHÖJDEN',w:5292,h:7087,ratio:'3/4.24',proOnly:true  },
+  { id:'sq12',  label:'12 × 12"',   sub:'Square / 30cm', ikea:'SANNAHED',  w:3600, h:3600, ratio:'1/1',   proOnly:true  },
+  { id:'sq20',  label:'20 × 20"',   sub:'Large Square',  ikea:'',          w:6000, h:6000, ratio:'1/1',   proOnly:true  },
+];
+
+/* ══════════════════════════════════════
+   MOOD ENGINE
+   Analyses quote text → returns a mood
+   object used to colour the 3 mood designs
+══════════════════════════════════════ */
+const MOODS = {
+  calm: {
+    name:'Calm', emoji:'🌿', dot:'#7a9a7a',
+    pill:'rgba(122,154,122,.15)',
+    // Aurora Wash bg gradient
+    aw: 'linear-gradient(160deg,#2a4a3a 0%,#1a3028 40%,#0f1f18 100%)',
+    // Gradient Canvas colours
+    gc: { bg:'#f4f8f2', bar:'#5a8a5a', tag:'#7a9a6a', bd:'#1a2a1a', sc:'#3a6a3a', rl:'#5a8a5a', au:'#7a9a6a' },
+    // Ink Wash blob colours
+    iw: { bg:'#f5f9f4', b1:'rgba(100,160,100,.35)', b2:'rgba(140,190,120,.28)', b3:'rgba(80,130,90,.22)', txt:'#1a2a1a', sc:'#2a4a2a', rl:'rgba(80,140,80,.3)', rls:'rgba(80,140,80,.2)', au:'#4a6a4a' },
+  },
+  love: {
+    name:'Love', emoji:'🌸', dot:'#c07080',
+    pill:'rgba(192,112,128,.15)',
+    aw: 'linear-gradient(160deg,#5a1a28 0%,#3a0f1a 45%,#1a0808 100%)',
+    gc: { bg:'#fdf0f3', bar:'#c07080', tag:'#a05060', bd:'#2a0a10', sc:'#8a3040', rl:'#c07080', au:'#a06070' },
+    iw: { bg:'#fef4f6', b1:'rgba(200,120,140,.35)', b2:'rgba(220,150,160,.28)', b3:'rgba(180,100,120,.22)', txt:'#2a0a12', sc:'#8a2a38', rl:'rgba(200,100,120,.3)', rls:'rgba(180,80,100,.2)', au:'#804050' },
+  },
+  hope: {
+    name:'Hope', emoji:'✨', dot:'#c8a840',
+    pill:'rgba(200,168,64,.15)',
+    aw: 'linear-gradient(160deg,#2a2a0a 0%,#1a1a06 45%,#0c0c04 100%)',
+    gc: { bg:'#fdfaf0', bar:'#c8a840', tag:'#a08820', bd:'#1a1600', sc:'#6a5010', rl:'#c8a840', au:'#a08830' },
+    iw: { bg:'#fdfbf0', b1:'rgba(200,170,80,.35)', b2:'rgba(220,190,100,.28)', b3:'rgba(180,150,60,.22)', txt:'#1a1400', sc:'#6a5010', rl:'rgba(200,170,60,.3)', rls:'rgba(180,150,40,.2)', au:'#806820' },
+  },
+  strength: {
+    name:'Strength', emoji:'🔥', dot:'#c06030',
+    pill:'rgba(192,96,48,.15)',
+    aw: 'linear-gradient(160deg,#3a1a08 0%,#250f04 45%,#100804 100%)',
+    gc: { bg:'#faf2ec', bar:'#c06030', tag:'#a04820', bd:'#1a0800', sc:'#803018', rl:'#c06030', au:'#a04820' },
+    iw: { bg:'#fdf4ee', b1:'rgba(200,100,60,.35)', b2:'rgba(220,130,80,.28)', b3:'rgba(180,80,40,.22)', txt:'#1a0800', sc:'#803018', rl:'rgba(200,90,50,.3)', rls:'rgba(180,70,30,.2)', au:'#804020' },
+  },
+  night: {
+    name:'Night', emoji:'🌙', dot:'#6080b0',
+    pill:'rgba(96,128,176,.15)',
+    aw: 'linear-gradient(160deg,#080818 0%,#050510 45%,#020208 100%)',
+    gc: { bg:'#0e1020', bar:'#6080c0', tag:'rgba(140,160,200,.55)', bd:'#e8eaf8', sc:'#a0b0d8', rl:'#6080c0', au:'rgba(140,160,200,.55)' },
+    iw: { bg:'#0c0e1e', b1:'rgba(80,100,180,.35)', b2:'rgba(60,80,160,.28)', b3:'rgba(40,60,140,.22)', txt:'#d8dff8', sc:'#a0b8e8', rl:'rgba(100,130,200,.3)', rls:'rgba(80,110,180,.2)', au:'rgba(150,170,220,.6)' },
+  },
+  nature: {
+    name:'Nature', emoji:'🌲', dot:'#4a7a4a',
+    pill:'rgba(74,122,74,.15)',
+    aw: 'linear-gradient(160deg,#0f2818 0%,#0a1a10 45%,#060e08 100%)',
+    gc: { bg:'#f2f6ee', bar:'#4a7a4a', tag:'#5a8a4a', bd:'#0a1a08', sc:'#2a5a28', rl:'#4a7a4a', au:'#5a8a4a' },
+    iw: { bg:'#f3f7ef', b1:'rgba(80,140,80,.35)', b2:'rgba(60,120,60,.28)', b3:'rgba(100,160,80,.22)', txt:'#0a1a08', sc:'#2a5a28', rl:'rgba(70,130,70,.3)', rls:'rgba(50,110,50,.2)', au:'#4a7a4a' },
+  },
+  wisdom: {
+    name:'Wisdom', emoji:'📖', dot:'#7a6a9a',
+    pill:'rgba(122,106,154,.15)',
+    aw: 'linear-gradient(160deg,#18101e 0%,#100a14 45%,#08060a 100%)',
+    gc: { bg:'#f6f3fa', bar:'#7a6a9a', tag:'#6a5a8a', bd:'#12081a', sc:'#4a3a6a', rl:'#7a6a9a', au:'#6a5a8a' },
+    iw: { bg:'#f7f4fb', b1:'rgba(140,110,180,.35)', b2:'rgba(120,90,160,.28)', b3:'rgba(100,80,140,.22)', txt:'#12081a', sc:'#4a3a6a', rl:'rgba(130,100,170,.3)', rls:'rgba(110,80,150,.2)', au:'#6a5a8a' },
+  },
+  joy: {
+    name:'Joy', emoji:'☀️', dot:'#d09030',
+    pill:'rgba(208,144,48,.15)',
+    aw: 'linear-gradient(160deg,#2a1a04 0%,#1a1004 45%,#0e0a02 100%)',
+    gc: { bg:'#fffbf0', bar:'#d09030', tag:'#b07820', bd:'#1a0e00', sc:'#7a4a08', rl:'#d09030', au:'#b07820' },
+    iw: { bg:'#fffcf0', b1:'rgba(220,170,60,.35)', b2:'rgba(240,190,80,.28)', b3:'rgba(200,150,40,.22)', txt:'#1a0e00', sc:'#7a4a08', rl:'rgba(210,160,50,.3)', rls:'rgba(190,140,30,.2)', au:'#9a6818' },
+  },
+};
+
+// keyword → mood mapping
+const MOOD_KEYWORDS = {
+  calm:     ['calm','peace','peaceful','still','quiet','serene','gentle','soft','breathe','breath','rest','ease','tranquil','slow','silence','mindful','meditat'],
+  love:     ['love','heart','cherish','beloved','darling','adore','kiss','romance','tender','embrace','miss','together','soul mate','forever','always','devotion'],
+  hope:     ['hope','dream','believe','faith','light','future','tomorrow','rise','begin','new','start','possible','courage','wish','aspire','shine'],
+  strength: ['strong','strength','power','brave','courage','warrior','fight','overcome','resilient','bold','fierce','unstoppable','will','force','endure','persist','never give up','never quit'],
+  night:    ['night','dark','moon','star','stars','midnight','shadow','dusk','twilight','dream','sleep','mystery','unknown','deep'],
+  nature:   ['nature','forest','tree','river','mountain','ocean','sea','earth','bloom','flower','wild','grow','root','stone','rain','wind','leaf','garden','bird','sky'],
+  wisdom:   ['wisdom','wise','mind','thought','truth','know','learn','understand','wonder','question','seek','philosophy','meaning','reflect','soul','journey'],
+  joy:      ['joy','happy','happiness','laugh','smile','delight','celebrate','grateful','gratitude','thankful','blessed','alive','vibrant','play','free'],
+  hope:     ['hope','dream','believe','light','possible'],
+};
+
+let currentMood = null;
+
+function detectMood(text) {
+  const t = text.toLowerCase();
+  const scores = {};
+  for (const [mood, words] of Object.entries(MOOD_KEYWORDS)) {
+    scores[mood] = 0;
+    for (const w of words) { if (t.includes(w)) scores[mood]++; }
+  }
+  const best = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0];
+  return (best && best[1] > 0) ? best[0] : 'calm'; // default calm
+}
+
+function applyMoodToDesigns(mood, canvasEl, designId) {
+  const m = MOODS[mood];
+  if (!m) return;
+
+  if (designId === 'aw') {
+    // Aurora Wash — set background gradient
+    canvasEl.querySelector('.pc').style.background = m.aw;
+  }
+  if (designId === 'gc') {
+    // Gradient Canvas — set colour tokens
+    const pc = canvasEl.querySelector('.pc');
+    const c = m.gc;
+    pc.style.background = c.bg;
+    const bar = pc.querySelector('.gc-bar');
+    const tag = pc.querySelector('.gc-tag');
+    if (bar) bar.style.background = c.bar;
+    if (tag) { tag.style.color = c.tag; }
+    pc.querySelectorAll('.bd').forEach(el => el.style.color = c.bd);
+    pc.querySelectorAll('.sc').forEach(el => el.style.color = c.sc);
+    const rl = pc.querySelector('.rl');
+    if (rl) rl.style.background = c.rl;
+    pc.querySelectorAll('.au').forEach(el => el.style.color = c.au);
+  }
+  if (designId === 'iw') {
+    const pc = canvasEl.querySelector('.pc');
+    const c = m.iw;
+    pc.style.background = c.bg;
+    const b1 = pc.querySelector('.iw-blob1');
+    const b2 = pc.querySelector('.iw-blob2');
+    const b3 = pc.querySelector('.iw-blob3');
+    if (b1) b1.style.background = c.b1;
+    if (b2) b2.style.background = c.b2;
+    if (b3) b3.style.background = c.b3;
+    pc.querySelectorAll('.bd').forEach(el => el.style.color = c.txt);
+    pc.querySelectorAll('.sc').forEach(el => el.style.color = c.sc);
+    const rl = pc.querySelector('.rl');
+    if (rl) {
+      rl.style.setProperty('--rc', c.rl);
+      rl.style.borderColor = c.rl;
+      // apply to pseudo via direct child styling
+      rl.querySelectorAll('span').forEach(s => s.style.color = c.rls);
+    }
+    pc.querySelectorAll('.au').forEach(el => el.style.color = c.au);
+  }
+}
+
+function showMoodPill(mood) {
+  const m = MOODS[mood];
+  if (!m) return;
+  const bar = document.getElementById('mood-bar');
+  bar.style.opacity = '0';
+  setTimeout(() => {
+    bar.innerHTML = `<span class="mood-pill" style="border-color:${m.dot}33;background:${m.pill}">
+      <span class="mood-dot" style="background:${m.dot}"></span>
+      ${m.emoji} &nbsp; Mood detected: <strong style="color:${m.dot};margin-left:4px">${m.name}</strong>
+    </span>`;
+    bar.style.opacity = '1';
+  }, 200);
+}
+
+
+const DESIGNS = [
+  { id:'wf', label:'Wildflower Garden', badge:'BOTANICAL', dark:false },
+  { id:'sm', label:'Pure Script Mix',   badge:'ELEGANT',  dark:false },
+  { id:'mn', label:'Midnight Studio',   badge:'LUXURY',   dark:true  },
+  { id:'gl', label:'Golden Age',        badge:'CLASSIC',  dark:false },
+  { id:'os', label:'Oswald Impact',     badge:'STRONG',   dark:false },
+  { id:'rz', label:'Rozha Royal',       badge:'REGAL',    dark:true  },
+  { id:'ff', label:'Fatface Drama',     badge:'BOLD',     dark:false },
+  { id:'bl', label:'Blush Romance',     badge:'ROMANTIC', dark:false },
+  { id:'lo', label:'Lora Grace',        badge:'REFINED',  dark:false },
+  { id:'co', label:'Cobalt Editorial',  badge:'CELESTIAL',dark:true  },
+  { id:'dc', label:'Crimson Deco',      badge:'ART DECO', dark:false },
+  { id:'nw', label:'Newsprint Edition', badge:'EDITORIAL',dark:false },
+  { id:'sg', label:'Sage Garden',       badge:'NATURAL',  dark:false },
+  /* ── 12 New Designs ── */
+  { id:'ib', label:'Ink Botanical',     badge:'FINE ART', dark:false },
+  { id:'wb', label:'Watercolour Bloom', badge:'ROMANTIC', dark:false },
+  { id:'sc', label:'Scandi Clean',      badge:'MINIMAL',  dark:false },
+  { id:'sf', label:'Nordic Nature',     badge:'NORDIC',   dark:false },
+  { id:'ag', label:'Abstract Geo',      badge:'MODERN',   dark:false },
+  { id:'jz', label:'Zen Journal',       badge:'ZEN',      dark:false },
+  { id:'ms', label:'Modern Serif',      badge:'KINFOLK',  dark:false },
+  { id:'np', label:'Nordic Poster',     badge:'EDITORIAL',dark:true  },
+  { id:'cp', label:'Crushed Petals',    badge:'DELICATE', dark:false },
+  { id:'vb', label:'Vintage Botanica',  badge:'HERITAGE', dark:false },
+  { id:'tb', label:'Terracotta Bold',   badge:'EARTHY',   dark:false },
+  { id:'wm', label:'William Morris',    badge:'HERITAGE', dark:true  },
+  /* ── 3 Mood Designs ── */
+  { id:'aw', label:'Aurora Wash',       badge:'✦ MOOD',   dark:true  },
+  { id:'gc', label:'Gradient Canvas',   badge:'✦ MOOD',   dark:false },
+  { id:'iw', label:'Ink Wash',          badge:'✦ MOOD',   dark:false },
+];
+
+/* ══════════════════════════════════════
+   QUOTE SPLITTER
+══════════════════════════════════════ */
+const SMALL = new Set(['a','an','the','is','of','in','on','at','to','for','with','not','but','and','or','nor','so','yet','as','by','be','it','its','all','was','are','were','has','have','had','does','do','this','that','these','those','my','your','our','from','into','than','then','when','where','how','what','who','why','if','just','only','even','still','am','you','we','i','me','him','her','us','them']);
+
+function splitQ(q) {
+  const words = q.trim().split(/\s+/);
+  let chunks = [], i = 0;
+  while (i < words.length) {
+    let run = [], type = SMALL.has(words[i].toLowerCase().replace(/[^a-z]/g,'')) ? 'sc' : 'bd';
+    while (i < words.length) {
+      const t = SMALL.has(words[i].toLowerCase().replace(/[^a-z]/g,'')) ? 'sc' : 'bd';
+      if (t !== type) break;
+      run.push(words[i++]);
+      if (type === 'bd' && run.length >= 3) break;
+    }
+    if (run.length) chunks.push({ t: type, w: run.join(' ') });
+  }
+  return chunks.length ? chunks : [{ t:'bd', w:q }];
+}
+
+function lns(chunks, scCls, bdCls) {
+  return chunks.map(c =>
+    `<span class="ln ${c.t==='sc'?scCls:bdCls}">${c.w}</span>`
+  ).join('');
+}
+
+/* ══════════════════════════════════════
+   BUILD DESIGN HTML
+══════════════════════════════════════ */
+function buildD(id, q, au, chunks) {
+  const a = au ? `— ${au}` : '';
+  const map = {
+    wf: `<div class="pc d-wf"><div class="side"><div class="side-txt">🌿🌸🌾</div></div><div class="cnt">${lns(chunks,'sc','bd')}<div class="au">${a}</div></div></div>`,
+    sm: `<div class="pc d-sm">${lns(chunks,'sc','bd')}<div class="au">${a}</div></div>`,
+    mn: `<div class="pc d-mn"><div class="glow"></div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    gl: `<div class="pc d-gl"><div class="co tl"></div><div class="co tr"></div><div class="co bl"></div><div class="co br"></div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    os: `<div class="pc d-os"><div class="sup">Verse &amp; Frame — Print Edition</div>${lns(chunks,'sc','bd')}<div class="bar"></div><div class="au">${a}</div></div>`,
+    rz: `<div class="pc d-rz"><div class="tag">Verse &amp; Frame</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    ff: `<div class="pc d-ff"><div class="bar"></div>${lns(chunks,'sc','bd')}<div class="au">${a}</div></div>`,
+    bl: `<div class="pc d-bl"><div class="pt pt1"></div><div class="pt pt2"></div><div class="mono">❧</div>${lns(chunks,'sc','bd')}<div class="rl"><span>✦</span></div><div class="au">${a}</div></div>`,
+    lo: `<div class="pc d-lo"><div class="orn">✦ &nbsp; ✦ &nbsp; ✦</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    co: `<div class="pc d-co"><div class="num">I</div><div class="tag">Verse &amp; Frame</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    dc: `<div class="pc d-dc"><div class="bo"></div><div class="bi"></div><div class="dm t"></div><div class="dm b"></div>${lns(chunks,'sc','bd')}<div class="rl"><span>✦</span></div><div class="au">${a}</div></div>`,
+    nw: `<div class="pc d-nw"><div class="hd">Verse &amp; Frame · Print Studio</div><div class="mn">${lns(chunks,'sc','bd')}</div><div class="ft"><span>${a||'Anonymous'}</span><span>Vol. I</span></div></div>`,
+    sg: `<div class="pc d-sg"><div class="lf tl">🌿</div><div class="lf br">🌿</div><div class="top">Verse &amp; Frame</div>${lns(chunks,'sc','bd')}<div class="rl"><span>✦</span></div><div class="au">${a}</div></div>`,
+    /* ── 12 New Designs ── */
+    ib: `<div class="pc d-ib"><div class="corner-leaf tl">🌿</div><div class="corner-leaf tr">🌿</div><div class="corner-leaf bl">🌱</div><div class="corner-leaf br">🌱</div><div class="sprig left">🌾</div><div class="sprig right">🌾</div><div class="ink-rule"></div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    wb: `<div class="pc d-wb"><div class="bloom bl1"></div><div class="bloom bl2"></div>${lns(chunks,'sc','bd')}<div class="rl"><span>✿</span></div><div class="au">${a}</div></div>`,
+    sc: `<div class="pc d-sc"><div class="sc-tag">Verse &amp; Frame — Studio</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    sf: `<div class="pc d-sf"><div class="pine-tl">🌲</div><div class="pine-br">🌲</div><div class="nb"></div>${lns(chunks,'sc','bd')}<div class="rl"><span>·</span></div><div class="au">${a}</div></div>`,
+    ag: `<div class="pc d-ag"><div class="geo-circle gc1"></div><div class="geo-circle gc2"></div><div class="geo-rect gr1"></div><div class="geo-rect gr2"></div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    jz: `<div class="pc d-jz"><div class="brush"></div><div class="zen-dot"></div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div><div class="kanji">禅</div></div>`,
+    ms: `<div class="pc d-ms"><div class="ms-tag">Verse &amp; Frame</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    np: `<div class="pc d-np"><div class="np-top"><span class="np-label">Verse &amp; Frame</span><span class="np-num">№ 01</span></div><div class="np-body">${lns(chunks,'sc','bd')}</div><div class="np-bot"><span class="au">${a||'Anonymous'}</span><span class="np-label">Print Edition</span></div></div>`,
+    cp: `<div class="pc d-cp"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="mono">✿</div>${lns(chunks,'sc','bd')}<div class="rl"><span>✦</span></div><div class="au">${a}</div></div>`,
+    vb: `<div class="pc d-vb"><div class="vb-corner tl">✦</div><div class="vb-corner tr">✦</div><div class="vb-corner bl">✦</div><div class="vb-corner br">✦</div><div class="vb-tag">Verse &amp; Frame · Botanical Print</div>${lns(chunks,'sc','bd')}<div class="rl"><span>❧</span></div><div class="au">${a}</div></div>`,
+    tb: `<div class="pc d-tb"><div class="tc-block"></div><div class="tc-circle tcc1"></div><div class="tc-circle tcc2"></div><div class="tc-label">Verse &amp; Frame Studio</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    wm: `<div class="pc d-wm"><div class="wm-border"></div><div class="wm-inner"></div><div class="wm-corner tl">✦</div><div class="wm-corner tr">✦</div><div class="wm-corner bl">✦</div><div class="wm-corner br">✦</div><div class="wm-tag">Verse &amp; Frame · Heritage</div>${lns(chunks,'sc','bd')}<div class="rl"><span>⚜</span></div><div class="au">${a}</div></div>`,
+    /* ── 3 Mood Designs (colours set post-render by applyMoodToDesigns) ── */
+    aw: `<div class="pc d-aw"><div class="aw-veil"></div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    gc: `<div class="pc d-gc"><div class="gc-noise"></div><div class="gc-bar"></div><div class="gc-tag">Verse &amp; Frame · Mood Series</div>${lns(chunks,'sc','bd')}<div class="rl"></div><div class="au">${a}</div></div>`,
+    iw: `<div class="pc d-iw"><div class="iw-blob1" style="width:200px;height:160px;top:-40px;left:-40px"></div><div class="iw-blob2" style="width:160px;height:200px;bottom:-30px;right:-30px"></div><div class="iw-blob3" style="width:120px;height:120px;top:40%;left:35%"></div>${lns(chunks,'sc','bd')}<div class="rl"><span>·</span></div><div class="au">${a}</div></div>`,
+  };
+  return map[id] || '';
+}
+
+/* ══════════════════════════════════════
+   WATERMARK
+══════════════════════════════════════ */
+function addWatermark(canvasEl, isDark) {
+  /* watermark disabled — clean previews for all tiers */
+}
+
+/* ══════════════════════════════════════
+   GENERATE
+══════════════════════════════════════ */
+function go() {
+  const q = document.getElementById('qi').value.trim();
+  const au = document.getElementById('ai').value.trim();
+  if (!q) { document.getElementById('qi').focus(); return; }
+
+  // Detect mood from quote text
+  currentMood = detectMood(q);
+  showMoodPill(currentMood);
+
+  const chunks = splitQ(q);
+  const grid = document.getElementById('grid');
+  const head = document.getElementById('ghead');
+  const sub  = document.getElementById('ghead-sub');
+
+  grid.innerHTML = '';
+  head.style.display = 'block';
+  sub.textContent = isPro
+    ? '28 Unique Designs · 4K Pro Quality · No Watermark'
+    : '28 Unique Designs · Free Preview · Upgrade for 4K Clean';
+
+  DESIGNS.forEach((d, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'card-wrap';
+    wrap.style.animationDelay = `${i*50}ms`;
+
+    // label — mood designs get special badge colour
+    const isMood = ['aw','gc','iw'].includes(d.id);
+    const top = document.createElement('div');
+    top.className = 'card-top';
+    const badgeCls = isPro ? 'pro-badge' : (isMood ? 'mood-badge' : '');
+    top.innerHTML = `<span>${d.label}</span><span class="badge ${badgeCls}">${isPro?'✦ PRO':d.badge}</span>`;
+
+    // canvas
+    const canvas = document.createElement('div');
+    canvas.className = 'print-canvas';
+    canvas.id = `cv-${d.id}`;
+    canvas.innerHTML = buildD(d.id, q, au, chunks);
+
+    // Apply mood colours to the 3 mood designs immediately after building
+    if (isMood) {
+      setTimeout(() => applyMoodToDesigns(currentMood, canvas, d.id), 0);
+    }
+
+    addWatermark(canvas, d.dark); // no-op now (watermark disabled)
+    canvas.onclick = () => openPrev(canvas, d.id, d.dark);
+
+    // actions
+    const arow = document.createElement('div');
+    arow.className = 'action-row';
+    if (isPro) {
+      arow.innerHTML = `
+        <button class="act-btn" onclick="dlDesign('${d.id}',false,event)">↓ Download 4K</button>
+        <button class="act-btn prime" onclick="openPrev(document.getElementById('cv-${d.id}'),'${d.id}',${d.dark})">⤢ Preview</button>`;
+    } else {
+      arow.innerHTML = `
+        <button class="act-btn" onclick="dlDesign('${d.id}',true,event)">↓ Free Download</button>
+        <button class="act-btn pro-act" onclick="openPayModal('pro-monthly')">✦ Pro 4K</button>`;
+    }
+
+    wrap.appendChild(top);
+    wrap.appendChild(canvas);
+    wrap.appendChild(arow);
+    grid.appendChild(wrap);
+  });
+
+  setTimeout(() => head.scrollIntoView({ behavior:'smooth', block:'start' }), 120);
+}
+
+/* ══════════════════════════════════════
+   DOWNLOAD
+══════════════════════════════════════ */
+function dlDesign(id, withWM, evt) {
+  if (evt) evt.stopPropagation();
+  const el = document.getElementById(`cv-${id}`);
+  if (!el) return;
+  const btn = evt?.target;
+  const origTxt = btn?.textContent;
+  if (btn) btn.textContent = '...';
+  html2canvas(el, { scale: isPro ? 4 : 2, useCORS:true, backgroundColor:null, logging:false })
+    .then(c => {
+      const a = document.createElement('a');
+      a.download = `verse-frame-${id}${withWM?'-free':'-pro4k'}.png`;
+      a.href = c.toDataURL('image/png');
+      a.click();
+      if (btn) btn.textContent = origTxt;
+    });
+}
+
+/* ══════════════════════════════════════
+   PREVIEW MODAL
+══════════════════════════════════════ */
+function openPrev(el, id, isDark) {
+  prevEl = el; prevId = id;
+  const mc = document.getElementById('prev-canvas');
+  mc.innerHTML = '';
+  const clone = el.cloneNode(true);
+  const sz = getActiveSizeObj();
+  clone.style.cssText = `width:100%;height:auto;aspect-ratio:${sz.ratio};cursor:default;display:block;`;
+  mc.appendChild(clone);
+
+  // Re-apply mood to mood designs in the preview clone
+  const isMood = ['aw','gc','iw'].includes(id);
+  if (isMood && currentMood) {
+    setTimeout(() => applyMoodToDesigns(currentMood, clone, id), 0);
+  }
+
+  // Build size picker
+  buildSizePicker();
+
+  const freeBtn = document.getElementById('prev-free-btn');
+  const proBtn  = document.getElementById('prev-pro-btn');
+  if (isPro) {
+    freeBtn.style.display = 'none';
+    proBtn.textContent = '↓ Download — ' + getSizeLabel();
+  } else {
+    freeBtn.style.display = '';
+    freeBtn.textContent = '↓ Free Download (A4)';
+    proBtn.textContent = '✦ Pro — ' + getSizeLabel() + ' Clean';
+  }
+  document.getElementById('prev-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function buildSizePicker() {
+  const grid = document.getElementById('size-grid');
+  grid.innerHTML = '';
+  SIZES.forEach(sz => {
+    const btn = document.createElement('button');
+    btn.className = 'size-btn' + (sz.id === activeSize ? ' active' : '');
+    const locked = sz.proOnly && !isPro;
+    btn.innerHTML = `
+      <span class="sb-name">${sz.label}${locked ? ' 🔒' : ''}</span>
+      <span class="sb-dim">${sz.sub}</span>
+      ${sz.ikea ? `<span class="sb-px">IKEA ${sz.ikea}</span>` : `<span class="sb-px">${sz.w}×${sz.h}px</span>`}
+    `;
+    btn.onclick = () => {
+      if (locked) { closePrev(); openPayModal('pro-monthly'); return; }
+      activeSize = sz.id;
+      // Update canvas preview aspect ratio
+      const clone = document.querySelector('#prev-canvas > div');
+      if (clone) clone.style.aspectRatio = sz.ratio;
+      // Refresh button states
+      buildSizePicker();
+      updateDlButtons();
+    };
+    grid.appendChild(btn);
+  });
+
+  // Pro note
+  const note = document.getElementById('size-pro-note');
+  if (!isPro) {
+    note.innerHTML = '🔒 <span>Pro</span> unlocks 6 print sizes up to A2 (50×70cm) · 300dpi';
+  } else {
+    const sz = SIZES.find(s => s.id === activeSize);
+    note.innerHTML = `Exporting at <span>${sz.w} × ${sz.h}px</span> · 300dpi print-ready`;
+  }
+}
+
+function updateDlButtons() {
+  const freeBtn = document.getElementById('prev-free-btn');
+  const proBtn  = document.getElementById('prev-pro-btn');
+  if (isPro) {
+    freeBtn.style.display = 'none';
+    proBtn.textContent = '↓ Download — ' + getSizeLabel();
+  } else {
+    proBtn.textContent = '✦ Pro — ' + getSizeLabel() + ' Clean';
+  }
+}
+
+function getSizeLabel() {
+  return SIZES.find(s => s.id === activeSize)?.label || 'A4';
+}
+
+function getActiveSizeObj() {
+  return SIZES.find(s => s.id === activeSize) || SIZES[1];
+}
+function closePrev() {
+  document.getElementById('prev-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function dlPreviewFree() {
+  if (!prevEl) return;
+  const btn = document.getElementById('prev-free-btn');
+  const orig = btn.textContent;
+  btn.textContent = '⏳ Rendering...';
+  btn.disabled = true;
+  // Free always exports at A4 size watermarked
+  const freeSize = SIZES.find(s => s.id === 'a4');
+  const scaleX = freeSize.w / prevEl.offsetWidth;
+  html2canvas(prevEl, {
+    scale: Math.max(2, scaleX),
+    useCORS: true,
+    backgroundColor: null,
+    logging: false,
+    width: prevEl.offsetWidth,
+    height: prevEl.offsetHeight
+  }).then(c => {
+    const a = document.createElement('a');
+    a.download = `verse-frame-${prevId}-free-A4.png`;
+    a.href = c.toDataURL('image/png');
+    a.click();
+    btn.textContent = orig;
+    btn.disabled = false;
+  });
+}
+
+function dlPreviewPro() {
+  if (!isPro) { closePrev(); openPayModal('pro-monthly'); return; }
+  const btn = document.getElementById('prev-pro-btn');
+  const orig = btn.textContent;
+  btn.textContent = '⏳ Rendering...';
+  btn.disabled = true;
+  const sz = getActiveSizeObj();
+  // Calculate scale so output matches the target pixel dimensions exactly
+  const scaleX = sz.w / prevEl.offsetWidth;
+  const scaleY = sz.h / prevEl.offsetHeight;
+  const scale  = Math.max(scaleX, scaleY);
+  html2canvas(prevEl, {
+    scale: scale,
+    useCORS: true,
+    backgroundColor: null,
+    logging: false,
+    width: prevEl.offsetWidth,
+    height: prevEl.offsetHeight
+  }).then(rawCanvas => {
+    // Crop/fit to exact target dimensions
+    const out = document.createElement('canvas');
+    out.width  = sz.w;
+    out.height = sz.h;
+    const ctx = out.getContext('2d');
+    const srcW = Math.min(rawCanvas.width,  sz.w);
+    const srcH = Math.min(rawCanvas.height, sz.h);
+    ctx.drawImage(rawCanvas, 0, 0, srcW, srcH, 0, 0, srcW, srcH);
+    const a = document.createElement('a');
+    a.download = `verse-frame-${prevId}-${sz.id}-${sz.w}x${sz.h}.png`;
+    a.href = out.toDataURL('image/png');
+    a.click();
+    btn.textContent = orig;
+    btn.disabled = false;
+  });
+}
+
+/* ══════════════════════════════════════
+   PAYMENT MODAL
+══════════════════════════════════════ */
+function openPayModal(plan) {
+  if (isPro) { scrollTo('page-studio'); return; }
+  activePlan = plan;
+  updatePlanUI(plan);
+  document.getElementById('pay-form-view').style.display = '';
+  document.getElementById('pay-success-view').classList.remove('show');
+  document.getElementById('pay-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePayModal() {
+  document.getElementById('pay-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function selectPlan(plan) {
+  activePlan = plan;
+  updatePlanUI(plan);
+}
+function updatePlanUI(plan) {
+  const monthly = plan === 'pro-monthly';
+  document.getElementById('tab-monthly').classList.toggle('active', monthly);
+  document.getElementById('tab-annual').classList.toggle('active', !monthly);
+  document.getElementById('sum-plan').textContent = monthly ? 'Pro Monthly' : 'Pro Annual';
+  document.getElementById('sum-billing').textContent = monthly ? 'Monthly · Cancel anytime' : 'Annual · Billed once yearly';
+  document.getElementById('sum-total').textContent = monthly ? '$7.00' : '$49.00';
+}
+function processPayment() {
+  const email = document.getElementById('pay-email').value.trim();
+  const card  = document.getElementById('pay-card').value.trim();
+  if (!email || !card) {
+    alert('Please fill in your email and card number to continue.');
+    return;
+  }
+  const btn = document.querySelector('.pay-btn');
+  btn.textContent = '⏳  Processing...';
+  btn.disabled = true;
+  // Simulate payment processing (replace with real Stripe/Razorpay integration)
+  setTimeout(() => {
+    btn.textContent = '✦  Complete Purchase';
+    btn.disabled = false;
+    document.getElementById('pay-form-view').style.display = 'none';
+    document.getElementById('pay-success-view').classList.add('show');
+  }, 1800);
+}
+function activatePro() {
+  isPro = true;
+  closePayModal();
+  document.getElementById('user-status').style.display = 'block';
+  document.querySelector('.nav-pro-btn').textContent = '✦ Pro Active';
+  document.querySelector('.nav-pro-btn').style.background = 'rgba(201,169,110,.15)';
+  document.querySelector('.nav-pro-btn').style.color = 'var(--pro)';
+  document.querySelector('.nav-pro-btn').style.border = '1px solid rgba(201,169,110,.3)';
+  document.querySelector('.free-notice').style.display = 'none';
+  scrollTo('page-studio');
+  const q = document.getElementById('qi').value.trim();
+  if (q) go(); // regenerate without watermarks
+}
+
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function scrollTo(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+function fmtCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function fmtExp(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,4);
+  if (v.length > 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+  el.value = v;
+}
+// close modals on backdrop
+document.getElementById('pay-modal').addEventListener('click', e => { if(e.target===document.getElementById('pay-modal')) closePayModal(); });
+document.getElementById('prev-modal').addEventListener('click', e => { if(e.target===document.getElementById('prev-modal')) closePrev(); });
+// Ctrl+Enter to generate
+document.getElementById('qi').addEventListener('keydown', e => { if(e.key==='Enter'&&e.ctrlKey) go(); });
+
+// Auto-demo
+window.addEventListener('load', () => {
+  document.getElementById('qi').value = 'You are enough exactly as you are';
+  document.getElementById('ai').value = 'Wellness Collective';
+  setTimeout(go, 800);
+});
+</script>
+</body>
+</html>
