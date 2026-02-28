@@ -207,6 +207,69 @@ input#ai:focus{border-color:rgba(184,146,42,.4);}
 .prev-dl-btn.pro{background:linear-gradient(135deg,var(--gold),#7a5a10);color:#1a1208;}
 .prev-dl-btn.pro:hover{opacity:.9;}
 
+/* ═══════════════════ WALL MOCKUP ═══════════════════ */
+.mockup-toggle-row{display:flex;gap:6px;margin-top:10px;}
+.mockup-tab{flex:1;background:transparent;border:1px solid rgba(184,146,42,.18);color:rgba(245,239,227,.4);font-family:'Raleway',sans-serif;font-size:.5rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;padding:8px 4px;cursor:pointer;transition:all .2s;text-align:center;}
+.mockup-tab:hover{border-color:rgba(184,146,42,.4);color:var(--parchment);}
+.mockup-tab.active{background:rgba(184,146,42,.08);border-color:var(--gold);color:var(--gold);}
+#wall-mockup-wrap{margin-top:10px;display:none;position:relative;width:100%;border-radius:2px;overflow:hidden;}
+#wall-mockup-wrap.show{display:block;}
+#wall-mockup-scene{width:100%;display:block;position:relative;}
+/* Room backgrounds — pure CSS */
+.room-scandi{background:linear-gradient(180deg,#e8e4de 0%,#ddd8d0 60%,#c8c0b4 100%);padding-bottom:56.25%;}
+.room-warm{background:linear-gradient(180deg,#d4c4a8 0%,#c8b090 60%,#b89878 100%);padding-bottom:56.25%;}
+.room-office{background:linear-gradient(180deg,#c8ccd0 0%,#b8bcc4 60%,#a8acb4 100%);padding-bottom:56.25%;}
+.room-gallery{background:linear-gradient(180deg,#f0ece4 0%,#e8e0d4 60%,#d8d0c4 100%);padding-bottom:56.25%;}
+#wall-mockup-scene{position:relative;width:100%;}
+.room-bg{position:absolute;inset:0;}
+/* floor line */
+.room-floor{position:absolute;bottom:0;left:0;right:0;height:28%;background:linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.14) 100%);}
+/* wall shelf/rail line */
+.room-rail{position:absolute;left:0;right:0;height:2px;background:rgba(0,0,0,.1);}
+/* frame on wall */
+.mockup-frame-wrap{position:absolute;top:8%;left:50%;transform:translateX(-50%);width:32%;filter:drop-shadow(0 8px 24px rgba(0,0,0,.28)) drop-shadow(0 2px 6px rgba(0,0,0,.2));}
+.mockup-frame-mat{background:#f5f0e8;padding:6%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);}
+.mockup-frame-border{border:3px solid #2a2018;padding:4px;}
+.mockup-frame-inner{border:1px solid rgba(0,0,0,.06);overflow:hidden;}
+.mockup-frame-inner .print-canvas{pointer-events:none;transform-origin:top left;}
+/* room props — CSS only */
+.room-prop{position:absolute;font-size:1rem;opacity:.35;pointer-events:none;user-select:none;}
+/* mockup scene sizing */
+.mockup-scene-inner{position:relative;width:100%;padding-bottom:56%;overflow:hidden;}
+
+/* ═══════════════════ CUSTOMISER PANEL ═══════════════════ */
+.customiser-wrap{margin-top:12px;padding:14px 16px;background:rgba(245,239,227,.03);border:1px solid rgba(184,146,42,.12);}
+.customiser-label{font-family:'Raleway',sans-serif;font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dust);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.customiser-label::after{content:'';flex:1;height:1px;background:rgba(184,146,42,.1);}
+.customiser-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.cust-group{display:flex;flex-direction:column;gap:5px;flex:1;min-width:100px;}
+.cust-group label{font-family:'Raleway',sans-serif;font-size:.48rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,239,227,.35);}
+.cust-range{-webkit-appearance:none;width:100%;height:3px;background:rgba(184,146,42,.2);outline:none;border-radius:2px;}
+.cust-range::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.cust-range::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--gold);cursor:pointer;border:none;}
+.cust-align-row{display:flex;gap:5px;}
+.cust-align-btn{background:transparent;border:1px solid rgba(184,146,42,.2);color:rgba(245,239,227,.4);font-size:.7rem;padding:6px 10px;cursor:pointer;transition:all .2s;font-family:'Raleway',sans-serif;}
+.cust-align-btn:hover,.cust-align-btn.active{background:rgba(184,146,42,.08);border-color:var(--gold);color:var(--gold);}
+.cust-val{font-family:'Raleway',sans-serif;font-size:.5rem;color:var(--gold);min-width:24px;text-align:right;}
+
+/* ═══════════════════ SURPRISE ME BUTTON ═══════════════════ */
+.surprise-btn{background:transparent;border:1px solid rgba(184,146,42,.25);color:rgba(245,239,227,.5);font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;padding:10px 20px;cursor:pointer;transition:all .3s;white-space:nowrap;}
+.surprise-btn:hover{background:rgba(184,146,42,.06);border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+.surprise-btn .dice{display:inline-block;transition:transform .3s;}
+.surprise-btn:hover .dice{transform:rotate(180deg);}
+
+/* ═══════════════════ STAGE FLOW ═══════════════════ */
+.stage-nav{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:36px;}
+.stage-step{display:flex;align-items:center;gap:8px;font-family:'Raleway',sans-serif;font-size:.55rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,239,227,.25);transition:color .4s;}
+.stage-step.active{color:var(--gold);}
+.stage-step.done{color:rgba(245,239,227,.45);}
+.stage-num{width:22px;height:22px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-family:'Cinzel',serif;flex-shrink:0;}
+.stage-step.active .stage-num{background:var(--gold);color:#1a1208;border-color:var(--gold);}
+.stage-step.done .stage-num{background:rgba(245,239,227,.1);}
+.stage-divider{width:32px;height:1px;background:rgba(184,146,42,.15);margin:0 6px;}
+.stage-label{font-size:.5rem;}
+
+
 /* ═══════════════════ HOW IT WORKS ═══════════════════ */
 #page-how{padding:100px 24px;border-top:1px solid rgba(184,146,42,.08);}
 .how-wrap{max-width:900px;margin:0 auto;}
@@ -663,14 +726,60 @@ footer{padding:44px 32px;border-top:1px solid rgba(184,146,42,.1);display:flex;a
 <!-- ═══════════ STUDIO ═══════════ -->
 <section id="page-studio">
   <div class="section-wrap">
+
+    <!-- Stage Navigation -->
+    <div class="stage-nav" id="stage-nav">
+      <div class="stage-step active" id="stage-1">
+        <div class="stage-num">I</div>
+        <div class="stage-label">The Soul</div>
+      </div>
+      <div class="stage-divider"></div>
+      <div class="stage-step" id="stage-2">
+        <div class="stage-num">II</div>
+        <div class="stage-label">The Vessel</div>
+      </div>
+      <div class="stage-divider"></div>
+      <div class="stage-step" id="stage-3">
+        <div class="stage-num">III</div>
+        <div class="stage-label">The Frame</div>
+      </div>
+    </div>
+
     <div class="sec-eyebrow">Your Quote</div>
     <textarea id="qi" rows="4" placeholder="Enter your favourite quote…&#10;e.g. &quot;You are enough, exactly as you are.&quot;"></textarea>
     <div class="input-row">
       <input type="text" id="ai" placeholder="— Author or source (optional)">
+      <button class="surprise-btn" onclick="surpriseMe()" title="Random design">
+        <span class="dice">⚄</span> &nbsp; Surprise Me
+      </button>
       <button class="gen-btn" onclick="go()">✦ &nbsp; Generate Prints</button>
     </div>
+
+    <!-- Customiser Panel -->
+    <div class="customiser-wrap" id="customiser-wrap" style="display:none">
+      <div class="customiser-label">Customise</div>
+      <div class="customiser-row">
+        <div class="cust-group">
+          <label>Font Size <span class="cust-val" id="fs-val">100%</span></label>
+          <input type="range" class="cust-range" id="font-scale" min="60" max="150" value="100" oninput="applyCustomiser()">
+        </div>
+        <div class="cust-group">
+          <label>Letter Spacing <span class="cust-val" id="ls-val">0</span></label>
+          <input type="range" class="cust-range" id="letter-spacing" min="-2" max="8" value="0" oninput="applyCustomiser()">
+        </div>
+        <div class="cust-group">
+          <label>Alignment</label>
+          <div class="cust-align-row">
+            <button class="cust-align-btn active" id="align-left"   onclick="setAlign('left')"  >☰</button>
+            <button class="cust-align-btn"        id="align-center" onclick="setAlign('center')">≡</button>
+            <button class="cust-align-btn"        id="align-right"  onclick="setAlign('right')" >≡</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="free-notice">
-      <p>🎨 <strong>Free tier:</strong> Download all 28 designs with a small watermark &nbsp;·&nbsp; <strong>Pro:</strong> Crystal-clear 4K, no watermark, unlimited downloads</p>
+      <p>🎨 <strong>Free tier:</strong> Download all 28 designs &nbsp;·&nbsp; <strong>Pro:</strong> Crystal-clear 4K, all frame sizes, no watermark</p>
       <button onclick="openPayModal('pro-monthly')">Unlock Pro ✦</button>
     </div>
     <div id="mood-bar"></div>
@@ -832,20 +941,36 @@ footer{padding:44px 32px;border-top:1px solid rgba(184,146,42,.1);display:flex;a
 <div id="prev-modal">
   <div id="prev-inner">
     <button id="prev-close" onclick="closePrev()">✕ &nbsp; Close</button>
-    <div id="prev-canvas"></div>
+
+    <!-- View toggle: Design / Wall Mockup -->
+    <div class="mockup-toggle-row">
+      <button class="mockup-tab active" id="tab-design"  onclick="setPreviewTab('design')">⬜ Design</button>
+      <button class="mockup-tab"        id="tab-scandi"  onclick="setPreviewTab('scandi')">🏠 Scandi Wall</button>
+      <button class="mockup-tab"        id="tab-warm"    onclick="setPreviewTab('warm')">🛏 Bedroom</button>
+      <button class="mockup-tab"        id="tab-office"  onclick="setPreviewTab('office')">💼 Office</button>
+      <button class="mockup-tab"        id="tab-gallery" onclick="setPreviewTab('gallery')">🖼 Gallery</button>
+    </div>
+
+    <!-- Flat design preview -->
+    <div id="prev-canvas" style="margin-top:10px;"></div>
+
+    <!-- Wall mockup scene -->
+    <div id="wall-mockup-wrap">
+      <div class="mockup-scene-inner" id="mockup-scene-inner">
+        <!-- room bg, props and frame injected by JS -->
+      </div>
+    </div>
 
     <!-- Frame Size Picker -->
     <div class="size-picker-wrap">
       <div class="size-picker-label">Frame Size</div>
-      <div class="size-grid" id="size-grid">
-        <!-- populated by JS -->
-      </div>
+      <div class="size-grid" id="size-grid"></div>
       <div class="size-pro-note" id="size-pro-note"></div>
     </div>
 
     <div class="prev-dl-row">
-      <button class="prev-dl-btn free" id="prev-free-btn" onclick="dlPreviewFree()">↓ Free (Watermarked)</button>
-      <button class="prev-dl-btn pro" id="prev-pro-btn" onclick="dlPreviewPro()">✦ Pro — 4K Clean</button>
+      <button class="prev-dl-btn free" id="prev-free-btn" onclick="dlPreviewFree()">↓ Free Download (A4)</button>
+      <button class="prev-dl-btn pro"  id="prev-pro-btn"  onclick="dlPreviewPro()">✦ Pro — 4K Clean</button>
     </div>
   </div>
 </div>
@@ -854,10 +979,15 @@ footer{padding:44px 32px;border-top:1px solid rgba(184,146,42,.1);display:flex;a
 /* ══════════════════════════════════════
    STATE
 ══════════════════════════════════════ */
-let isPro = false;
+let isPro = localStorage.getItem('vf_pro') === '1';
 let activePlan = 'pro-monthly';
 let prevEl = null, prevId = '';
-let activeSize = 'a4'; // default frame size
+let activeSize = 'a4';
+let activePreviewTab = 'design';
+let custFontScale = 100;
+let custLetterSpacing = 0;
+let custAlign = 'left';
+let currentStage = 1;
 
 /* ══════════════════════════════════════
    FRAME SIZES
@@ -952,7 +1082,6 @@ const MOOD_KEYWORDS = {
   nature:   ['nature','forest','tree','river','mountain','ocean','sea','earth','bloom','flower','wild','grow','root','stone','rain','wind','leaf','garden','bird','sky'],
   wisdom:   ['wisdom','wise','mind','thought','truth','know','learn','understand','wonder','question','seek','philosophy','meaning','reflect','soul','journey'],
   joy:      ['joy','happy','happiness','laugh','smile','delight','celebrate','grateful','gratitude','thankful','blessed','alive','vibrant','play','free'],
-  hope:     ['hope','dream','believe','light','possible'],
 };
 
 let currentMood = null;
@@ -1063,6 +1192,210 @@ const DESIGNS = [
 ];
 
 /* ══════════════════════════════════════
+   STAGE FLOW
+══════════════════════════════════════ */
+function setStage(n) {
+  currentStage = n;
+  [1,2,3].forEach(i => {
+    const el = document.getElementById(`stage-${i}`);
+    if (!el) return;
+    el.classList.remove('active','done');
+    if (i === n) el.classList.add('active');
+    else if (i < n) el.classList.add('done');
+  });
+}
+
+/* ══════════════════════════════════════
+   SURPRISE ME
+══════════════════════════════════════ */
+function surpriseMe() {
+  const q = document.getElementById('qi').value.trim();
+  if (!q) {
+    // Pick a random inspirational quote if field empty
+    const demo = [
+      ['The only way out is through.','Robert Frost'],
+      ['Still I rise.','Maya Angelou'],
+      ['Begin anywhere.','John Cage'],
+      ['Less is more.','Ludwig Mies van der Rohe'],
+      ['Create the things you wish existed.',''],
+      ['Be the energy you want to attract.',''],
+      ['You are enough, exactly as you are.',''],
+      ['In the middle of difficulty lies opportunity.','Albert Einstein'],
+      ['The present moment always will have been.',''],
+      ['Do what you love. Love what you do.',''],
+    ];
+    const pick = demo[Math.floor(Math.random() * demo.length)];
+    document.getElementById('qi').value = pick[0];
+    document.getElementById('ai').value = pick[1];
+  }
+  go();
+  // After generating, highlight a random single design with a flash
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.card-wrap');
+    if (!cards.length) return;
+    const lucky = cards[Math.floor(Math.random() * cards.length)];
+    lucky.style.transition = 'box-shadow .3s, transform .3s';
+    lucky.style.boxShadow = '0 0 0 2px var(--gold)';
+    lucky.style.transform = 'translateY(-4px)';
+    setTimeout(() => { lucky.style.boxShadow=''; lucky.style.transform=''; }, 1800);
+    lucky.scrollIntoView({ behavior:'smooth', block:'center' });
+  }, 600);
+}
+
+/* ══════════════════════════════════════
+   CUSTOMISER
+══════════════════════════════════════ */
+function applyCustomiser() {
+  custFontScale = parseInt(document.getElementById('font-scale').value);
+  custLetterSpacing = parseInt(document.getElementById('letter-spacing').value);
+  document.getElementById('fs-val').textContent = custFontScale + '%';
+  document.getElementById('ls-val').textContent = custLetterSpacing + 'px';
+  // Apply to all rendered design canvases
+  document.querySelectorAll('.print-canvas .pc').forEach(pc => {
+    pc.style.fontSize = (custFontScale / 100) + 'em';
+    pc.style.letterSpacing = custLetterSpacing + 'px';
+    if (custAlign !== 'left') {
+      pc.querySelectorAll('.bd,.sc').forEach(el => {
+        el.style.textAlign = custAlign;
+        el.style.display = 'block';
+      });
+    }
+  });
+  // Also update preview modal if open
+  const prevClone = document.querySelector('#prev-canvas .pc');
+  if (prevClone) {
+    prevClone.style.fontSize = (custFontScale / 100) + 'em';
+    prevClone.style.letterSpacing = custLetterSpacing + 'px';
+  }
+}
+function setAlign(a) {
+  custAlign = a;
+  ['left','center','right'].forEach(d => {
+    document.getElementById('align-'+d)?.classList.toggle('active', d === a);
+  });
+  applyCustomiser();
+}
+
+/* ══════════════════════════════════════
+   WALL MOCKUP
+══════════════════════════════════════ */
+const ROOMS = {
+  scandi: {
+    bg: 'linear-gradient(180deg,#eae6df 0%,#ddd8d0 55%,#cec8be 100%)',
+    floor: 'rgba(180,165,145,.5)',
+    rail: '60%',
+    props: [
+      { emoji:'🪴', style:'bottom:28%;left:8%;font-size:2.2rem;opacity:.4;' },
+      { emoji:'📚', style:'bottom:28%;right:10%;font-size:1.2rem;opacity:.35;' },
+    ],
+    frameColor: '#2a2018', matColor: '#f8f4ee'
+  },
+  warm: {
+    bg: 'linear-gradient(180deg,#cfc0a0 0%,#bfa882 55%,#a8906a 100%)',
+    floor: 'rgba(120,90,60,.4)',
+    rail: '58%',
+    props: [
+      { emoji:'🛋️', style:'bottom:26%;left:5%;font-size:2.8rem;opacity:.35;' },
+      { emoji:'🕯️', style:'bottom:28%;right:12%;font-size:1.4rem;opacity:.4;' },
+    ],
+    frameColor: '#3a2a14', matColor: '#f5efe0'
+  },
+  office: {
+    bg: 'linear-gradient(180deg,#d0d4d8 0%,#bec2c8 55%,#aaafb8 100%)',
+    floor: 'rgba(80,90,100,.35)',
+    rail: '62%',
+    props: [
+      { emoji:'🖥️', style:'bottom:26%;left:6%;font-size:2.4rem;opacity:.35;' },
+      { emoji:'🪴', style:'bottom:27%;right:8%;font-size:1.6rem;opacity:.4;' },
+    ],
+    frameColor: '#1a2030', matColor: '#f0f2f4'
+  },
+  gallery: {
+    bg: 'linear-gradient(180deg,#f0ece4 0%,#e4ddd4 55%,#d4ccc0 100%)',
+    floor: 'rgba(140,120,100,.35)',
+    rail: '60%',
+    props: [
+      { emoji:'🖼️', style:'bottom:27%;left:6%;font-size:1.6rem;opacity:.25;' },
+      { emoji:'🖼️', style:'bottom:27%;right:6%;font-size:1.6rem;opacity:.25;' },
+    ],
+    frameColor: '#2a2010', matColor: '#faf6ee'
+  },
+};
+
+function setPreviewTab(tab) {
+  activePreviewTab = tab;
+  // Update tab buttons
+  ['design','scandi','warm','office','gallery'].forEach(t => {
+    document.getElementById('tab-'+t)?.classList.toggle('active', t === tab);
+  });
+  const canvas = document.getElementById('prev-canvas');
+  const mockup = document.getElementById('wall-mockup-wrap');
+  if (tab === 'design') {
+    canvas.style.display = '';
+    mockup.classList.remove('show');
+  } else {
+    canvas.style.display = 'none';
+    mockup.classList.add('show');
+    renderWallMockup(tab);
+  }
+}
+
+function renderWallMockup(roomKey) {
+  if (!prevEl) return;
+  const room = ROOMS[roomKey];
+  const scene = document.getElementById('mockup-scene-inner');
+  // Clone the design
+  const clone = prevEl.cloneNode(true);
+  clone.style.cssText = 'width:100%;height:100%;display:block;pointer-events:none;';
+  // Apply mood if needed
+  const isMood = ['aw','gc','iw'].includes(prevId);
+  if (isMood && currentMood) setTimeout(() => applyMoodToDesigns(currentMood, clone, prevId), 0);
+  // Apply customiser
+  const pc = clone.querySelector('.pc');
+  if (pc) {
+    pc.style.fontSize = (custFontScale / 100) + 'em';
+    pc.style.letterSpacing = custLetterSpacing + 'px';
+  }
+  // Build scene HTML
+  const propHTML = room.props.map(p => `<span class="room-prop" style="${p.style}">${p.emoji}</span>`).join('');
+  scene.innerHTML = '';
+  scene.style.cssText = `position:relative;width:100%;padding-bottom:58%;overflow:hidden;border-radius:3px;`;
+  // Room bg
+  const bg = document.createElement('div');
+  bg.style.cssText = `position:absolute;inset:0;background:${room.bg};`;
+  // Floor
+  const floor = document.createElement('div');
+  floor.style.cssText = `position:absolute;bottom:0;left:0;right:0;height:28%;background:${room.floor};`;
+  // Rail line
+  const rail = document.createElement('div');
+  rail.style.cssText = `position:absolute;left:0;right:0;top:${room.rail};height:1px;background:rgba(0,0,0,.08);`;
+  // Frame wrapper
+  const frameWrap = document.createElement('div');
+  frameWrap.style.cssText = `position:absolute;top:6%;left:50%;transform:translateX(-50%);width:28%;filter:drop-shadow(0 6px 20px rgba(0,0,0,.3));`;
+  // Frame border
+  const frameBorder = document.createElement('div');
+  frameBorder.style.cssText = `border:4px solid ${room.frameColor};padding:6px;background:${room.frameColor};`;
+  // Mat
+  const mat = document.createElement('div');
+  mat.style.cssText = `background:${room.matColor};padding:8%;`;
+  // Inner print
+  const inner = document.createElement('div');
+  inner.style.cssText = `overflow:hidden;aspect-ratio:3/4;position:relative;`;
+  inner.appendChild(clone);
+  mat.appendChild(inner);
+  frameBorder.appendChild(mat);
+  frameWrap.appendChild(frameBorder);
+  // Props
+  const propsEl = document.createElement('div');
+  propsEl.innerHTML = propHTML;
+  scene.appendChild(bg);
+  scene.appendChild(floor);
+  scene.appendChild(rail);
+  scene.appendChild(frameWrap);
+  scene.appendChild(propsEl);
+}
+
+/* ══════════════════════════════════════
    QUOTE SPLITTER
 ══════════════════════════════════════ */
 const SMALL = new Set(['a','an','the','is','of','in','on','at','to','for','with','not','but','and','or','nor','so','yet','as','by','be','it','its','all','was','are','were','has','have','had','does','do','this','that','these','those','my','your','our','from','into','than','then','when','where','how','what','who','why','if','just','only','even','still','am','you','we','i','me','him','her','us','them']);
@@ -1147,6 +1480,12 @@ function go() {
   // Detect mood from quote text
   currentMood = detectMood(q);
   showMoodPill(currentMood);
+
+  // Advance to stage 2 (Vessel)
+  setStage(2);
+
+  // Show customiser
+  document.getElementById('customiser-wrap').style.display = '';
 
   const chunks = splitQ(q);
   const grid = document.getElementById('grid');
@@ -1260,6 +1599,7 @@ function openPrev(el, id, isDark) {
   }
   document.getElementById('prev-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  setStage(3);
 }
 
 function buildSizePicker() {
@@ -1280,6 +1620,8 @@ function buildSizePicker() {
       // Update canvas preview aspect ratio
       const clone = document.querySelector('#prev-canvas > div');
       if (clone) clone.style.aspectRatio = sz.ratio;
+      // Re-render wall mockup if showing
+      if (activePreviewTab !== 'design') renderWallMockup(activePreviewTab);
       // Refresh button states
       buildSizePicker();
       updateDlButtons();
@@ -1318,6 +1660,8 @@ function getActiveSizeObj() {
 function closePrev() {
   document.getElementById('prev-modal').classList.remove('open');
   document.body.style.overflow = '';
+  // Reset tab to flat design
+  setPreviewTab('design');
 }
 function dlPreviewFree() {
   if (!prevEl) return;
@@ -1429,6 +1773,7 @@ function processPayment() {
 }
 function activatePro() {
   isPro = true;
+  localStorage.setItem('vf_pro', '1');
   closePayModal();
   document.getElementById('user-status').style.display = 'block';
   document.querySelector('.nav-pro-btn').textContent = '✦ Pro Active';
@@ -1464,6 +1809,15 @@ document.getElementById('qi').addEventListener('keydown', e => { if(e.key==='Ent
 
 // Auto-demo
 window.addEventListener('load', () => {
+  // Restore Pro UI if saved
+  if (isPro) {
+    document.getElementById('user-status').style.display = 'block';
+    document.querySelector('.nav-pro-btn').textContent = '✦ Pro Active';
+    document.querySelector('.nav-pro-btn').style.background = 'rgba(201,169,110,.15)';
+    document.querySelector('.nav-pro-btn').style.color = 'var(--pro)';
+    document.querySelector('.nav-pro-btn').style.border = '1px solid rgba(201,169,110,.3)';
+    document.querySelector('.free-notice').style.display = 'none';
+  }
   document.getElementById('qi').value = 'You are enough exactly as you are';
   document.getElementById('ai').value = 'Wellness Collective';
   setTimeout(go, 800);
